@@ -1,1 +1,1966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Arcade</title>
 
+  <style>
+    :root{
+      --bg:#050b14;
+      --bg2:#091423;
+      --panel:#0c1828;
+      --panel2:#101f32;
+      --border:rgba(130,180,230,.15);
+      --text:#f1f7ff;
+      --muted:#8095ad;
+      --green:#35e58b;
+      --red:#ff5d78;
+      --blue:#55aaff;
+      --cyan:#43d9ff;
+      --gold:#ffd166;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 20% 0%,rgba(67,217,255,.08),transparent 30%),
+        radial-gradient(circle at 80% 0%,rgba(85,170,255,.07),transparent 30%),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    }
+
+    button,input{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    .app{
+      min-height:100vh;
+      display:flex;
+    }
+
+    .sidebar{
+      width:235px;
+      min-height:100vh;
+      background:rgba(7,15,27,.94);
+      border-right:1px solid var(--border);
+      padding:22px 14px;
+      position:fixed;
+      left:0;
+      top:0;
+      bottom:0;
+      z-index:20;
+    }
+
+    .brand{
+      padding:8px 12px 25px;
+    }
+
+    .brand-title{
+      font-size:21px;
+      font-weight:800;
+      letter-spacing:-.5px;
+    }
+
+    .brand-sub{
+      color:var(--muted);
+      font-size:11px;
+      margin-top:3px;
+    }
+
+    .nav-title{
+      color:#50657d;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1.3px;
+      padding:14px 12px 7px;
+    }
+
+    .nav button{
+      width:100%;
+      border:0;
+      background:transparent;
+      color:#8ea2b8;
+      text-align:left;
+      padding:11px 12px;
+      border-radius:9px;
+      margin:2px 0;
+      transition:.15s;
+    }
+
+    .nav button:hover,
+    .nav button.active{
+      background:rgba(85,170,255,.10);
+      color:#fff;
+    }
+
+    .nav button.active{
+      box-shadow:inset 2px 0 var(--cyan);
+    }
+
+    .main{
+      margin-left:235px;
+      width:calc(100% - 235px);
+    }
+
+    .topbar{
+      height:68px;
+      border-bottom:1px solid var(--border);
+      background:rgba(5,11,20,.82);
+      backdrop-filter:blur(14px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 28px;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+
+    .market-status{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      color:#a8b8c9;
+      font-size:13px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      background:var(--green);
+      border-radius:50%;
+      box-shadow:0 0 12px var(--green);
+    }
+
+    .account{
+      border:1px solid var(--border);
+      background:var(--panel);
+      color:#fff;
+      border-radius:9px;
+      padding:9px 14px;
+    }
+
+    .content{
+      padding:30px;
+      max-width:1500px;
+      margin:auto;
+    }
+
+    .hero{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .hero h1{
+      margin:0;
+      font-size:29px;
+      letter-spacing:-1px;
+    }
+
+    .hero p{
+      color:var(--muted);
+      margin:7px 0 0;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      border:1px solid var(--border);
+      background:var(--panel);
+      color:#fff;
+      padding:10px 15px;
+      border-radius:9px;
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg,#1684d9,#2457cf);
+      border-color:rgba(85,170,255,.45);
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:13px;
+      margin-bottom:20px;
+    }
+
+    .stat{
+      background:linear-gradient(145deg,var(--panel),var(--panel2));
+      border:1px solid var(--border);
+      border-radius:13px;
+      padding:17px;
+    }
+
+    .stat-label{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .stat-value{
+      font-size:22px;
+      font-weight:750;
+      margin-top:7px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.65fr) minmax(290px,.75fr);
+      gap:18px;
+    }
+
+    .card{
+      background:linear-gradient(145deg,rgba(12,24,40,.97),rgba(10,21,35,.97));
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    .card-head{
+      padding:17px 18px;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .stock-name{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .stock-icon{
+      width:39px;
+      height:39px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      background:rgba(67,217,255,.11);
+      color:var(--cyan);
+      font-weight:800;
+    }
+
+    .ticker{
+      font-weight:800;
+    }
+
+    .company{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    .price{
+      text-align:right;
+    }
+
+    .price-main{
+      font-size:24px;
+      font-weight:800;
+    }
+
+    .change{
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    .green{color:var(--green)}
+    .red{color:var(--red)}
+    .muted{color:var(--muted)}
+
+    .chart-wrap{
+      height:320px;
+      padding:10px 15px 0;
+      position:relative;
+    }
+
+    canvas{
+      width:100%;
+      height:100%;
+      display:block;
+    }
+
+    .metrics{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      border-top:1px solid var(--border);
+    }
+
+    .metric{
+      padding:14px 17px;
+      border-right:1px solid var(--border);
+    }
+
+    .metric:last-child{
+      border-right:0;
+    }
+
+    .metric-label{
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    .metric-value{
+      margin-top:5px;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .right{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .quick{
+      padding:18px;
+    }
+
+    .section-title{
+      font-size:14px;
+      font-weight:750;
+      margin-bottom:14px;
+    }
+
+    .trade-row{
+      display:flex;
+      gap:9px;
+      margin-bottom:10px;
+    }
+
+    input{
+      width:100%;
+      background:#07111f;
+      border:1px solid var(--border);
+      border-radius:8px;
+      color:#fff;
+      padding:10px 11px;
+      outline:none;
+    }
+
+    input:focus{
+      border-color:rgba(67,217,255,.5);
+    }
+
+    .quick-buttons{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:6px;
+      margin:9px 0;
+    }
+
+    .quick-buttons button{
+      border:1px solid var(--border);
+      background:#0a1625;
+      color:#9fb2c5;
+      padding:7px 4px;
+      border-radius:7px;
+    }
+
+    .trade-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .buy,.sell{
+      border:0;
+      border-radius:8px;
+      padding:10px;
+      color:#03140b;
+      font-weight:750;
+    }
+
+    .buy{background:var(--green)}
+    .sell{background:var(--red);color:#25040a}
+
+    .activity{
+      padding:18px;
+    }
+
+    .activity-row{
+      display:flex;
+      justify-content:space-between;
+      padding:10px 0;
+      border-bottom:1px solid rgba(130,180,230,.08);
+      font-size:12px;
+    }
+
+    .activity-row:last-child{
+      border-bottom:0;
+    }
+
+    .chat{
+      padding:18px;
+    }
+
+    .chat-messages{
+      height:190px;
+      overflow:auto;
+      background:#07111d;
+      border:1px solid var(--border);
+      border-radius:9px;
+      padding:10px;
+      margin-bottom:9px;
+    }
+
+    .message{
+      margin-bottom:10px;
+      font-size:12px;
+    }
+
+    .message-name{
+      color:var(--cyan);
+      font-weight:700;
+    }
+
+    .message-time{
+      color:#50657d;
+      font-size:9px;
+      margin-left:5px;
+    }
+
+    .notice{
+      margin-top:18px;
+      border:1px solid rgba(67,217,255,.13);
+      background:rgba(67,217,255,.04);
+      color:#7894ac;
+      border-radius:10px;
+      padding:12px 14px;
+      font-size:11px;
+    }
+
+    .modal-bg{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.72);
+      backdrop-filter:blur(7px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:100;
+      padding:20px;
+    }
+
+    .modal-bg.show{
+      display:flex;
+    }
+
+    .modal{
+      width:min(430px,100%);
+      background:#0b1828;
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:25px;
+      box-shadow:0 25px 70px rgba(0,0,0,.5);
+    }
+
+    .modal h2{
+      margin:0 0 7px;
+    }
+
+    .modal p{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .modal input{
+      margin:8px 0;
+    }
+
+    .error{
+      color:var(--red);
+      font-size:12px;
+      min-height:18px;
+    }
+
+    .toast{
+      position:fixed;
+      right:22px;
+      bottom:22px;
+      background:#101f32;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:9px;
+      display:none;
+      z-index:200;
+      box-shadow:0 10px 35px rgba(0,0,0,.4);
+      font-size:13px;
+    }
+
+    .toast.show{
+      display:block;
+    }
+
+    @media(max-width:1050px){
+      .sidebar{
+        width:75px;
+      }
+
+      .brand-title,
+      .brand-sub,
+      .nav-title{
+        display:none;
+      }
+
+      .brand{
+        padding:10px 8px 25px;
+      }
+
+      .nav button{
+        text-align:center;
+        font-size:0;
+      }
+
+      .nav button::first-letter{
+        font-size:18px;
+      }
+
+      .main{
+        margin-left:75px;
+        width:calc(100% - 75px);
+      }
+
+      .grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:700px){
+      .content{
+        padding:18px;
+      }
+
+      .stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .hero{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+
+      .metrics{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .metric:nth-child(2){
+        border-right:0;
+      }
+
+      .topbar{
+        padding:0 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-title">Market Arcade</div>
+      <div class="brand-sub">Virtual trading terminal</div>
+    </div>
+
+    <div class="nav">
+      <div class="nav-title">Market</div>
+      <button class="active">▣ &nbsp; Dashboard</button>
+      <button>◈ &nbsp; Market</button>
+      <button>▤ &nbsp; Portfolio</button>
+      <button>♧ &nbsp; Friends</button>
+      <button>🏆 &nbsp; Leaderboard</button>
+      <button>＋ &nbsp; Create Stock</button>
+      <button>⚙ &nbsp; Operator</button>
+
+      <div class="nav-title">Account</div>
+      <button id="profileBtn">● &nbsp; Profile</button>
+      <button id="signOutBtn">↪ &nbsp; Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="market-status">
+        <span class="dot"></span>
+        Market Open
+        <span class="muted">•</span>
+        <span id="onlineCount">Connecting...</span>
+      </div>
+
+      <button class="account" id="accountButton">
+        <span id="accountName">Trader</span>
+      </button>
+    </header>
+
+    <div class="content">
+
+      <section class="hero">
+        <div>
+          <h1>Good afternoon, trader.</h1>
+          <p>Trade fictional stocks with players across the Market Arcade.</p>
+        </div>
+
+        <div class="hero-actions">
+          <button class="btn">＋ Watchlist</button>
+          <button class="btn primary" id="fundsButton">＋ Add Funds</button>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="stat">
+          <div class="stat-label">Virtual Cash</div>
+          <div class="stat-value" id="cash">$100,000</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Portfolio Value</div>
+          <div class="stat-value" id="portfolioValue">$100,000</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Online Traders</div>
+          <div class="stat-value" id="onlineTraders">—</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Leaderboard Rank</div>
+          <div class="stat-value" id="rank">#—</div>
+        </div>
+      </section>
+
+      <section class="grid">
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <div class="stock-name">
+              <div class="stock-icon">C</div>
+
+              <div>
+                <div class="ticker">COOL</div>
+                <div class="company">Cool Industries</div>
+              </div>
+            </div>
+
+            <div class="price">
+              <div class="price-main" id="stockPrice">$10.42</div>
+              <div class="change" id="priceChange">+0.00%</div>
+            </div>
+
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="chart"></canvas>
+          </div>
+
+          <div class="metrics">
+
+            <div class="metric">
+              <div class="metric-label">Shareholders</div>
+              <div class="metric-value" id="shareholders">0</div>
+            </div>
+
+            <div class="metric">
+              <div class="metric-label">Your Shares</div>
+              <div class="metric-value" id="yourShares">0</div>
+            </div>
+
+            <div class="metric">
+              <div class="metric-label">Day High</div>
+              <div class="metric-value" id="dayHigh">$10.42</div>
+            </div>
+
+            <div class="metric">
+              <div class="metric-label">Day Low</div>
+              <div class="metric-value" id="dayLow">$10.42</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="right">
+
+          <div class="card quick">
+
+            <div class="section-title">Quick Trade</div>
+
+            <div class="trade-row">
+              <input id="tradeTicker" value="COOL" readonly>
+              <input id="shareAmount" type="number" value="25" min="1">
+            </div>
+
+            <div class="quick-buttons">
+              <button data-shares="10">10</button>
+              <button data-shares="25">25</button>
+              <button data-shares="50">50</button>
+              <button data-shares="100">100</button>
+            </div>
+
+            <div class="trade-actions">
+              <button class="buy" id="buyButton">Buy COOL</button>
+              <button class="sell" id="sellButton">Sell COOL</button>
+            </div>
+
+          </div>
+
+          <div class="card activity">
+
+            <div class="section-title">Market Activity</div>
+
+            <div id="activityList">
+
+              <div class="activity-row">
+                <span class="muted">Market</span>
+                <span class="green">LIVE</span>
+              </div>
+
+              <div class="activity-row">
+                <span class="muted">Stock</span>
+                <span>COOL</span>
+              </div>
+
+              <div class="activity-row">
+                <span class="muted">Price updates</span>
+                <span>Every 5 sec</span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card chat">
+
+            <div class="section-title">Live Chat</div>
+
+            <div class="chat-messages" id="chatMessages">
+              <div class="muted">Connecting to live chat...</div>
+            </div>
+
+            <div class="trade-row">
+              <input id="chatInput" placeholder="Message traders..." maxlength="150">
+              <button class="btn primary" id="sendChat">Send</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <div class="notice">
+        <b>Multiplayer beta:</b>
+        Your account, COOL's price, trades, leaderboard data and chat are synchronized through Firebase.
+        This version uses virtual currency only.
+      </div>
+
+    </div>
+  </main>
+</div>
+
+
+<!-- Username setup -->
+
+<div class="modal-bg" id="usernameModal">
+
+  <div class="modal">
+
+    <h2>Welcome to Market Arcade</h2>
+
+    <p>
+      Choose a trader name. Your account uses a Firebase anonymous account,
+      so you don't need to create a real password.
+    </p>
+
+    <input id="usernameInput" maxlength="20" placeholder="Trader name">
+
+    <div class="error" id="usernameError"></div>
+
+    <button class="btn primary" id="saveUsername" style="width:100%;">
+      Enter Market
+    </button>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script type="module">
+
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+
+  import {
+    getAuth,
+    signInAnonymously,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    collection,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    runTransaction,
+    addDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+
+  /* =========================
+     FIREBASE
+  ========================= */
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR--lnqsGNNFQ-pi651H6PHk_R0oIzupQ",
+    authDomain: "market-trade-4dbfa.firebaseapp.com",
+    projectId: "market-trade-4dbfa",
+    storageBucket: "market-trade-4dbfa.firebasestorage.app",
+    messagingSenderId: "355149817364",
+    appId: "1:355149817364:web:7d055735dd78837aca6901",
+    measurementId: "G-3QEKRPJYR2"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+
+  /* =========================
+     STATE
+  ========================= */
+
+  let currentUser = null;
+  let currentPlayer = null;
+  let currentStock = null;
+
+  let unsubscribePlayer = null;
+  let unsubscribeStock = null;
+  let unsubscribeChat = null;
+
+  const chartCanvas = document.getElementById("chart");
+  const chartCtx = chartCanvas.getContext("2d");
+
+
+  /* =========================
+     HELPERS
+  ========================= */
+
+  function money(value){
+    return "$" + Number(value || 0).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function wholeMoney(value){
+    return "$" + Math.round(Number(value || 0)).toLocaleString("en-US");
+  }
+
+  function showToast(message){
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 2600);
+  }
+
+  function randomTrader(){
+    return "Trader-" + Math.floor(1000 + Math.random() * 9000);
+  }
+
+  function escapeHTML(value){
+    return String(value)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+
+  /* =========================
+     AUTH
+  ========================= */
+
+  async function start(){
+
+    try{
+
+      await signInAnonymously(auth);
+
+    }catch(error){
+
+      console.error(error);
+
+      showToast(
+        "Firebase login failed. Make sure Anonymous Authentication is enabled."
+      );
+
+    }
+
+  }
+
+
+  onAuthStateChanged(auth, async user => {
+
+    if(!user) return;
+
+    currentUser = user;
+
+    await setupPlayer(user);
+
+  });
+
+
+  async function setupPlayer(user){
+
+    const playerRef = doc(db,"players",user.uid);
+    const playerSnap = await getDoc(playerRef);
+
+    if(!playerSnap.exists()){
+
+      await setDoc(playerRef,{
+
+        cash:100000,
+
+        shares:0,
+
+        username:randomTrader(),
+
+        createdAt:serverTimestamp(),
+
+        lastSeen:Date.now()
+
+      });
+
+      currentPlayer = {
+        cash:100000,
+        shares:0,
+        username:"Trader"
+      };
+
+      document.getElementById("usernameModal")
+        .classList.add("show");
+
+    }else{
+
+      currentPlayer = playerSnap.data();
+
+      document.getElementById("usernameInput").value =
+        currentPlayer.username || "";
+
+    }
+
+    listenToPlayer();
+    listenToStock();
+    listenToChat();
+
+    updatePresence();
+
+  }
+
+
+  /* =========================
+     PLAYER
+  ========================= */
+
+  function listenToPlayer(){
+
+    const playerRef = doc(db,"players",currentUser.uid);
+
+    unsubscribePlayer = onSnapshot(playerRef,snapshot => {
+
+      if(!snapshot.exists()) return;
+
+      currentPlayer = snapshot.data();
+
+      updatePlayerUI();
+
+    });
+
+  }
+
+
+  function updatePlayerUI(){
+
+    const cash = Number(currentPlayer.cash || 0);
+    const shares = Number(currentPlayer.shares || 0);
+    const price = Number(currentStock?.price || 0);
+
+    const portfolio = cash + shares * price;
+
+    document.getElementById("cash").textContent =
+      wholeMoney(cash);
+
+    document.getElementById("portfolioValue").textContent =
+      wholeMoney(portfolio);
+
+    document.getElementById("yourShares").textContent =
+      shares.toLocaleString();
+
+    document.getElementById("accountName").textContent =
+      currentPlayer.username || "Trader";
+
+  }
+
+
+  /* =========================
+     USERNAME
+  ========================= */
+
+  document.getElementById("saveUsername")
+    .addEventListener("click", async () => {
+
+      const input =
+        document.getElementById("usernameInput");
+
+      const error =
+        document.getElementById("usernameError");
+
+      const username = input.value.trim();
+
+      if(username.length < 3){
+
+        error.textContent =
+          "Username must be at least 3 characters.";
+
+        return;
+
+      }
+
+      if(username.length > 20){
+
+        error.textContent =
+          "Username must be 20 characters or less.";
+
+        return;
+
+      }
+
+      try{
+
+        await updateDoc(
+          doc(db,"players",currentUser.uid),
+          {
+            username:username,
+            lastSeen:Date.now()
+          }
+        );
+
+        document.getElementById("usernameModal")
+          .classList.remove("show");
+
+        showToast("Welcome, " + username + "!");
+
+      }catch(error){
+
+        console.error(error);
+
+        error.textContent =
+          "Couldn't save username.";
+
+      }
+
+    });
+
+
+  document.getElementById("accountButton")
+    .addEventListener("click",() => {
+
+      document.getElementById("usernameInput").value =
+        currentPlayer?.username || "";
+
+      document.getElementById("usernameModal")
+        .classList.add("show");
+
+    });
+
+
+  document.getElementById("profileBtn")
+    .addEventListener("click",() => {
+
+      document.getElementById("usernameInput").value =
+        currentPlayer?.username || "";
+
+      document.getElementById("usernameModal")
+        .classList.add("show");
+
+    });
+
+
+  /* =========================
+     STOCK
+  ========================= */
+
+  async function createCoolStock(){
+
+    const stockRef = doc(db,"stocks","COOL");
+
+    const snap = await getDoc(stockRef);
+
+    if(snap.exists()) return;
+
+    await setDoc(stockRef,{
+
+      ticker:"COOL",
+
+      name:"Cool Industries",
+
+      price:10.42,
+
+      previousPrice:10.42,
+
+      sharesOutstanding:1000000,
+
+      shareholders:0,
+
+      volume:0,
+
+      history:[10.42],
+
+      updatedAt:serverTimestamp()
+
+    });
+
+  }
+
+
+  async function listenStock(){
+
+    await createCoolStock();
+
+    const stockRef = doc(db,"stocks","COOL");
+
+    unsubscribeStock = onSnapshot(stockRef,snapshot => {
+
+      if(!snapshot.exists()) return;
+
+      currentStock = snapshot.data();
+
+      updateStockUI();
+
+      drawChart();
+
+    });
+
+  }
+
+
+  function listenToStock(){
+
+    listenStock().catch(error => {
+
+      console.error(error);
+
+      showToast("Could not connect to the COOL market.");
+
+    });
+
+  }
+
+
+  function updateStockUI(){
+
+    if(!currentStock) return;
+
+    const price = Number(currentStock.price || 0);
+
+    const previous =
+      Number(currentStock.previousPrice || price);
+
+    const change =
+      previous === 0
+        ? 0
+        : ((price - previous) / previous) * 100;
+
+    document.getElementById("stockPrice").textContent =
+      money(price);
+
+    const changeEl =
+      document.getElementById("priceChange");
+
+    changeEl.textContent =
+      (change >= 0 ? "+" : "") +
+      change.toFixed(2) +
+      "%";
+
+    changeEl.className =
+      "change " + (change >= 0 ? "green" : "red");
+
+    document.getElementById("shareholders").textContent =
+      Number(currentStock.shareholders || 0).toLocaleString();
+
+    const history =
+      Array.isArray(currentStock.history)
+        ? currentStock.history
+        : [price];
+
+    document.getElementById("dayHigh").textContent =
+      money(Math.max(...history));
+
+    document.getElementById("dayLow").textContent =
+      money(Math.min(...history));
+
+    updatePlayerUI();
+
+  }
+
+
+  /* =========================
+     MARKET MOVEMENT
+  ========================= */
+
+  let marketMoving = false;
+
+  async function moveMarket(){
+
+    if(!currentUser || marketMoving) return;
+
+    marketMoving = true;
+
+    try{
+
+      const stockRef = doc(db,"stocks","COOL");
+
+      await runTransaction(db, async transaction => {
+
+        const snap = await transaction.get(stockRef);
+
+        if(!snap.exists()) return;
+
+        const data = snap.data();
+
+        const oldPrice =
+          Number(data.price || 10.42);
+
+        /*
+          Positive long-term drift.
+          Short-term movement can still be up or down.
+        */
+
+        const randomSwing =
+          (Math.random() * 0.14) - 0.07;
+
+        const drift = 0.009;
+
+        let newPrice =
+          oldPrice * (1 + drift + randomSwing);
+
+        newPrice =
+          Math.max(0.25,newPrice);
+
+        newPrice =
+          Number(newPrice.toFixed(2));
+
+        let history =
+          Array.isArray(data.history)
+            ? [...data.history]
+            : [oldPrice];
+
+        history.push(newPrice);
+
+        if(history.length > 120){
+          history = history.slice(-120);
+        }
+
+        transaction.update(stockRef,{
+
+          price:newPrice,
+
+          previousPrice:oldPrice,
+
+          history:history,
+
+          volume:Number(data.volume || 0),
+
+          updatedAt:serverTimestamp()
+
+        });
+
+      });
+
+    }catch(error){
+
+      console.error("Market movement error:",error);
+
+    }
+
+    marketMoving = false;
+
+  }
+
+
+  /*
+    One browser/player acts as a market heartbeat.
+
+    This is suitable for the multiplayer beta.
+    A later secure version should move this calculation
+    to a trusted backend/server function.
+  */
+
+  setInterval(() => {
+
+    if(currentUser){
+
+      moveMarket();
+
+    }
+
+  },5000);
+
+
+  /* =========================
+     TRADING
+  ========================= */
+
+  document.querySelectorAll(".quick-buttons button")
+    .forEach(button => {
+
+      button.addEventListener("click",() => {
+
+        document.getElementById("shareAmount").value =
+          button.dataset.shares;
+
+      });
+
+    });
+
+
+  document.getElementById("buyButton")
+    .addEventListener("click",() => trade("buy"));
+
+
+  document.getElementById("sellButton")
+    .addEventListener("click",() => trade("sell"));
+
+
+  async function trade(type){
+
+    if(!currentUser || !currentStock) return;
+
+    const amount =
+      Number(document.getElementById("shareAmount").value);
+
+    if(!Number.isInteger(amount) || amount <= 0){
+
+      showToast("Enter a valid number of shares.");
+
+      return;
+
+    }
+
+    try{
+
+      const playerRef =
+        doc(db,"players",currentUser.uid);
+
+      const stockRef =
+        doc(db,"stocks","COOL");
+
+      await runTransaction(db, async transaction => {
+
+        const playerSnap =
+          await transaction.get(playerRef);
+
+        const stockSnap =
+          await transaction.get(stockRef);
+
+        if(!playerSnap.exists() || !stockSnap.exists()){
+
+          throw new Error("Market data unavailable.");
+
+        }
+
+        const player =
+          playerSnap.data();
+
+        const stock =
+          stockSnap.data();
+
+        const price =
+          Number(stock.price || 0);
+
+        const total =
+          price * amount;
+
+        let cash =
+          Number(player.cash || 0);
+
+        let shares =
+          Number(player.shares || 0);
+
+        let shareholders =
+          Number(stock.shareholders || 0);
+
+        if(type === "buy"){
+
+          if(cash < total){
+
+            throw new Error("Not enough virtual cash.");
+
+          }
+
+          const wasZero =
+            shares === 0;
+
+          cash -= total;
+          shares += amount;
+
+          if(wasZero){
+            shareholders++;
+          }
+
+        }else{
+
+          if(shares < amount){
+
+            throw new Error("You don't own enough COOL shares.");
+
+          }
+
+          shares -= amount;
+          cash += total;
+
+          if(shares === 0){
+            shareholders =
+              Math.max(0,shareholders - 1);
+          }
+
+        }
+
+        transaction.update(playerRef,{
+
+          cash:cash,
+
+          shares:shares,
+
+          lastSeen:Date.now()
+
+        });
+
+        transaction.update(stockRef,{
+
+          shareholders:shareholders,
+
+          volume:Number(stock.volume || 0) + amount,
+
+          updatedAt:serverTimestamp()
+
+        });
+
+      });
+
+      showToast(
+        type === "buy"
+          ? "Bought " + amount + " COOL shares."
+          : "Sold " + amount + " COOL shares."
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      showToast(error.message || "Trade failed.");
+
+    }
+
+  }
+
+
+  /* =========================
+     CHAT
+  ========================= */
+
+  function listenToChat(){
+
+    const chatQuery = query(
+
+      collection(db,"chat"),
+
+      orderBy("createdAt","desc"),
+
+      limit(25)
+
+    );
+
+    unsubscribeChat =
+      onSnapshot(chatQuery,snapshot => {
+
+        const box =
+          document.getElementById("chatMessages");
+
+        box.innerHTML = "";
+
+        const messages =
+          [...snapshot.docs].reverse();
+
+        if(messages.length === 0){
+
+          box.innerHTML =
+            '<div class="muted">No messages yet.</div>';
+
+          return;
+
+        }
+
+        messages.forEach(docSnap => {
+
+          const data = docSnap.data();
+
+          const div =
+            document.createElement("div");
+
+          div.className = "message";
+
+          div.innerHTML = `
+
+            <span class="message-name">
+              ${escapeHTML(data.username || "Trader")}
+            </span>
+
+            <span class="message-time">
+              LIVE
+            </span>
+
+            <div>
+              ${escapeHTML(data.text || "")}
+            </div>
+
+          `;
+
+          box.appendChild(div);
+
+        });
+
+        box.scrollTop = box.scrollHeight;
+
+      });
+
+  }
+
+
+  async function sendChat(){
+
+    const input =
+      document.getElementById("chatInput");
+
+    const text =
+      input.value.trim();
+
+    if(!text || !currentUser) return;
+
+    input.value = "";
+
+    try{
+
+      await addDoc(collection(db,"chat"),{
+
+        text:text,
+
+        username:
+          currentPlayer?.username || "Trader",
+
+        uid:currentUser.uid,
+
+        createdAt:serverTimestamp()
+
+      });
+
+    }catch(error){
+
+      console.error(error);
+
+      showToast("Couldn't send message.");
+
+    }
+
+  }
+
+
+  document.getElementById("sendChat")
+    .addEventListener("click",sendChat);
+
+
+  document.getElementById("chatInput")
+    .addEventListener("keydown",event => {
+
+      if(event.key === "Enter"){
+
+        sendChat();
+
+      }
+
+    });
+
+
+  /* =========================
+     ONLINE PRESENCE
+  ========================= */
+
+  async function updatePresence(){
+
+    if(!currentUser) return;
+
+    try{
+
+      await updateDoc(
+        doc(db,"players",currentUser.uid),
+        {
+          lastSeen:Date.now()
+        }
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  }
+
+
+  setInterval(updatePresence,15000);
+
+
+  /*
+    For this beta we read player records and
+    calculate active traders in the browser.
+  */
+
+  function listenOnlinePlayers(){
+
+    onSnapshot(
+      collection(db,"players"),
+      snapshot => {
+
+        const now = Date.now();
+
+        let online = 0;
+
+        snapshot.forEach(docSnap => {
+
+          const data = docSnap.data();
+
+          const lastSeen =
+            Number(data.lastSeen || 0);
+
+          if(now - lastSeen < 45000){
+
+            online++;
+
+          }
+
+        });
+
+        document.getElementById("onlineCount").textContent =
+          online + " online";
+
+        document.getElementById("onlineTraders").textContent =
+          online;
+
+        calculateRank(snapshot);
+
+      }
+    );
+
+  }
+
+
+  function calculateRank(snapshot){
+
+    const players = [];
+
+    const stockPrice =
+      Number(currentStock?.price || 0);
+
+    snapshot.forEach(docSnap => {
+
+      const data = docSnap.data();
+
+      const value =
+        Number(data.cash || 0) +
+        Number(data.shares || 0) * stockPrice;
+
+      players.push({
+
+        id:docSnap.id,
+
+        value:value
+
+      });
+
+    });
+
+    players.sort((a,b) => b.value - a.value);
+
+    const index =
+      players.findIndex(
+        player => player.id === currentUser?.uid
+      );
+
+    document.getElementById("rank").textContent =
+      index >= 0 ? "#" + (index + 1) : "#—";
+
+  }
+
+
+  /* =========================
+     CHART
+  ========================= */
+
+  function drawChart(){
+
+    if(!currentStock) return;
+
+    const history =
+      Array.isArray(currentStock.history)
+        ? currentStock.history
+        : [10.42];
+
+    const width =
+      chartCanvas.clientWidth;
+
+    const height =
+      chartCanvas.clientHeight;
+
+    const dpr =
+      window.devicePixelRatio || 1;
+
+    chartCanvas.width =
+      width * dpr;
+
+    chartCanvas.height =
+      height * dpr;
+
+    chartCtx.setTransform(dpr,0,0,dpr,0,0);
+
+    chartCtx.clearRect(0,0,width,height);
+
+    if(history.length < 2) return;
+
+    const min =
+      Math.min(...history);
+
+    const max =
+      Math.max(...history);
+
+    const range =
+      Math.max(.01,max-min);
+
+    const padX = 10;
+    const padY = 20;
+
+    /*
+      Grid
+    */
+
+    chartCtx.strokeStyle =
+      "rgba(130,180,230,.08)";
+
+    chartCtx.lineWidth = 1;
+
+    for(let i=0;i<5;i++){
+
+      const y =
+        padY +
+        (height - padY * 2) * i / 4;
+
+      chartCtx.beginPath();
+      chartCtx.moveTo(padX,y);
+      chartCtx.lineTo(width-padX,y);
+      chartCtx.stroke();
+
+    }
+
+    /*
+      Line
+    */
+
+    const points =
+      history.map((value,index) => {
+
+        const x =
+          padX +
+          (width - padX*2) *
+          index /
+          (history.length - 1);
+
+        const y =
+          height - padY -
+          ((value-min)/range) *
+          (height-padY*2);
+
+        return {x,y};
+
+      });
+
+    /*
+      Area
+    */
+
+    chartCtx.beginPath();
+
+    chartCtx.moveTo(
+      points[0].x,
+      height-padY
+    );
+
+    points.forEach(point => {
+
+      chartCtx.lineTo(
+        point.x,
+        point.y
+      );
+
+    });
+
+    chartCtx.lineTo(
+      points[points.length-1].x,
+      height-padY
+    );
+
+    chartCtx.closePath();
+
+    chartCtx.fillStyle =
+      "rgba(67,217,255,.07)";
+
+    chartCtx.fill();
+
+    /*
+      Line
+    */
+
+    chartCtx.beginPath();
+
+    points.forEach((point,index) => {
+
+      if(index === 0){
+
+        chartCtx.moveTo(
+          point.x,
+          point.y
+        );
+
+      }else{
+
+        chartCtx.lineTo(
+          point.x,
+          point.y
+        );
+
+      }
+
+    });
+
+    chartCtx.strokeStyle =
+      "#43d9ff";
+
+    chartCtx.lineWidth = 2;
+
+    chartCtx.stroke();
+
+    /*
+      Current price point
+    */
+
+    const last =
+      points[points.length-1];
+
+    chartCtx.beginPath();
+
+    chartCtx.arc(
+      last.x,
+      last.y,
+      4,
+      0,
+      Math.PI*2
+    );
+
+    chartCtx.fillStyle =
+      "#43d9ff";
+
+    chartCtx.fill();
+
+  }
+
+
+  window.addEventListener(
+    "resize",
+    drawChart
+  );
+
+
+  /* =========================
+     ADD FUNDS
+  ========================= */
+
+  document.getElementById("fundsButton")
+    .addEventListener("click",() => {
+
+      showToast(
+        "Virtual starting cash is managed by the game."
+      );
+
+    });
+
+
+  /* =========================
+     SIGN OUT
+  ========================= */
+
+  document.getElementById("signOutBtn")
+    .addEventListener("click",() => {
+
+      showToast(
+        "Anonymous accounts stay connected to this browser."
+      );
+
+    });
+
+
+  /* =========================
+     START
+  ========================= */
+
+  listenOnlinePlayers();
+
+  start();
+
+</script>
+
+</body>
+</html>
