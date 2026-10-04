@@ -6,1141 +6,1571 @@
 <title>Market Arcade</title>
 
 <style>
-:root{
-  --bg:#050b14;
-  --bg2:#091423;
-  --panel:#0c1828;
-  --panel2:#101f32;
-  --border:rgba(130,180,230,.15);
-  --text:#f1f7ff;
-  --muted:#8095ad;
-  --green:#35e58b;
-  --red:#ff5d78;
-  --blue:#55aaff;
-  --cyan:#43d9ff;
-  --gold:#ffd166;
-}
-
 *{box-sizing:border-box}
-
 body{
   margin:0;
-  background:
-    radial-gradient(circle at 20% 0%,rgba(67,217,255,.08),transparent 30%),
-    radial-gradient(circle at 80% 0%,rgba(85,170,255,.07),transparent 30%),
-    var(--bg);
-  color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#070b12;
+  color:#e8eef7;
 }
-
-button,input{font:inherit}
+button,input,select{font:inherit}
 button{cursor:pointer}
 
-.app{min-height:100vh;display:flex}
-
-.sidebar{
-  width:235px;
-  min-height:100vh;
-  background:rgba(7,15,27,.94);
-  border-right:1px solid var(--border);
-  padding:22px 14px;
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  z-index:20;
-}
-
-.brand{padding:8px 12px 25px}
-
-.brand-title{
-  font-size:21px;
-  font-weight:800;
-}
-
-.brand-sub{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
-}
-
-.nav-title{
-  color:#50657d;
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:1.3px;
-  padding:14px 12px 7px;
-}
-
-.nav button{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:#8ea2b8;
-  text-align:left;
-  padding:11px 12px;
-  border-radius:9px;
-  margin:2px 0;
-}
-
-.nav button:hover,
-.nav button.active{
-  background:rgba(85,170,255,.10);
-  color:#fff;
-}
-
-.nav button.active{
-  box-shadow:inset 2px 0 var(--cyan);
-}
-
-.main{
-  margin-left:235px;
-  width:calc(100% - 235px);
-}
-
 .topbar{
-  height:68px;
-  border-bottom:1px solid var(--border);
-  background:rgba(5,11,20,.82);
-  backdrop-filter:blur(14px);
+  height:64px;
+  background:#0d131d;
+  border-bottom:1px solid #202b3a;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 28px;
+  padding:0 20px;
   position:sticky;
   top:0;
   z-index:10;
 }
-
-.market-status{
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+.logo span{color:#32d583}
+.userbox{
   display:flex;
   align-items:center;
-  gap:9px;
-  color:#a8b8c9;
-  font-size:13px;
+  gap:12px;
+  color:#aeb9c8;
+}
+.cash{
+  color:#32d583;
+  font-weight:bold;
 }
 
-.dot{
-  width:8px;
-  height:8px;
-  background:var(--green);
-  border-radius:50%;
-  box-shadow:0 0 12px var(--green);
-}
+.layout{display:flex;min-height:calc(100vh - 64px)}
 
-.account{
-  border:1px solid var(--border);
-  background:var(--panel);
+.sidebar{
+  width:210px;
+  background:#0a1018;
+  border-right:1px solid #202b3a;
+  padding:14px 10px;
+  flex-shrink:0;
+}
+.navbtn{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:#9eabba;
+  padding:13px 14px;
+  border-radius:8px;
+  margin-bottom:4px;
+}
+.navbtn:hover{background:#121b28;color:#fff}
+.navbtn.active{
+  background:#142235;
   color:#fff;
-  border-radius:9px;
-  padding:9px 14px;
+  box-shadow:inset 3px 0 #32d583;
 }
 
-.content{
-  padding:30px;
-  max-width:1500px;
+.main{
+  flex:1;
+  padding:24px;
+  max-width:1400px;
   margin:auto;
+  width:100%;
 }
 
-.hero{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:20px;
-  margin-bottom:25px;
-}
+.page{display:none}
+.page.active{display:block}
 
-.hero h1{
-  margin:0;
-  font-size:29px;
-}
+h1{margin:0 0 8px;font-size:28px}
+h2{margin:0 0 15px;font-size:20px}
+p{color:#9eabba}
 
-.hero p{
-  color:var(--muted);
-  margin:7px 0 0;
-}
-
-.hero-actions{
-  display:flex;
-  gap:10px;
-}
-
-.btn{
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:#fff;
-  padding:10px 15px;
-  border-radius:9px;
-}
-
-.btn.primary{
-  background:linear-gradient(135deg,#1684d9,#2457cf);
-  border-color:rgba(85,170,255,.45);
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:13px;
-  margin-bottom:20px;
-}
-
-.stat{
-  background:linear-gradient(145deg,var(--panel),var(--panel2));
-  border:1px solid var(--border);
-  border-radius:13px;
-  padding:17px;
-}
-
-.stat-label{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.stat-value{
-  font-size:22px;
-  font-weight:750;
-  margin-top:7px;
+.card{
+  background:#0d141e;
+  border:1px solid #202b3a;
+  border-radius:12px;
+  padding:18px;
+  margin-bottom:18px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:minmax(0,1.65fr) minmax(290px,.75fr);
-  gap:18px;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
 }
-
-.card{
-  background:linear-gradient(145deg,rgba(12,24,40,.97),rgba(10,21,35,.97));
-  border:1px solid var(--border);
-  border-radius:14px;
-  overflow:hidden;
-}
-
-.card-head{
-  padding:17px 18px;
-  border-bottom:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.stock-name{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.stock-icon{
-  width:39px;
-  height:39px;
+.stat{
+  background:#101925;
+  border:1px solid #202b3a;
   border-radius:10px;
-  display:grid;
-  place-items:center;
-  background:rgba(67,217,255,.11);
-  color:var(--cyan);
+  padding:18px;
+}
+.stat-label{
+  color:#8491a2;
+  font-size:13px;
+  margin-bottom:8px;
+}
+.stat-value{
+  font-size:25px;
   font-weight:800;
 }
 
-.ticker{font-weight:800}
-
-.company{
-  color:var(--muted);
+.stock-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid #1c2735;
+}
+.stock-row:last-child{border-bottom:0}
+.stock-name{font-weight:bold}
+.stock-symbol{
+  color:#7f8da0;
   font-size:12px;
-  margin-top:2px;
+  margin-top:3px;
 }
+.price{font-weight:bold}
+.up{color:#32d583}
+.down{color:#ff5d67}
 
-.price{text-align:right}
-
-.price-main{
-  font-size:24px;
-  font-weight:800;
+.btn{
+  border:0;
+  border-radius:7px;
+  padding:10px 15px;
+  font-weight:bold;
 }
-
-.change{
-  font-size:12px;
-  margin-top:2px;
+.btn-green{background:#32d583;color:#06120b}
+.btn-red{background:#ff5d67;color:#210307}
+.btn-dark{
+  background:#172231;
+  color:#e8eef7;
+  border:1px solid #29384b;
 }
+.btn:hover{filter:brightness(1.08)}
 
-.green{color:var(--green)}
-.red{color:var(--red)}
-.muted{color:var(--muted)}
-
-.chart-wrap{
-  height:320px;
-  padding:10px 15px 0;
-}
-
-canvas{
+input,select{
   width:100%;
-  height:100%;
+  padding:11px 12px;
+  background:#09101a;
+  border:1px solid #29384b;
+  color:#fff;
+  border-radius:7px;
+  outline:none;
+}
+input:focus,select:focus{border-color:#32d583}
+
+.form-group{margin-bottom:13px}
+.form-group label{
+  display:block;
+  font-size:13px;
+  color:#9eabba;
+  margin-bottom:6px;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+th,td{
+  padding:12px 10px;
+  text-align:left;
+  border-bottom:1px solid #1c2735;
+}
+th{color:#7f8da0;font-size:12px}
+td{font-size:14px}
+
+.badge{
+  display:inline-block;
+  padding:4px 7px;
+  border-radius:5px;
+  font-size:11px;
+  background:#182536;
+  color:#aeb9c8;
+}
+.badge.green{background:#103523;color:#32d583}
+.badge.red{background:#38151a;color:#ff5d67}
+
+.chart{
+  width:100%;
+  height:260px;
+  background:#080e16;
+  border:1px solid #1c2735;
+  border-radius:8px;
   display:block;
 }
 
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--border);
-}
-
-.metric{
-  padding:14px 17px;
-  border-right:1px solid var(--border);
-}
-
-.metric:last-child{border-right:0}
-
-.metric-label{
-  color:var(--muted);
-  font-size:11px;
-}
-
-.metric-value{
-  margin-top:5px;
-  font-size:14px;
-  font-weight:700;
-}
-
-.right{
+.login-screen{
+  min-height:100vh;
   display:flex;
-  flex-direction:column;
-  gap:18px;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:#070b12;
 }
-
-.quick,
-.activity,
-.chat{
-  padding:18px;
-}
-
-.section-title{
-  font-size:14px;
-  font-weight:750;
-  margin-bottom:14px;
-}
-
-.trade-row{
-  display:flex;
-  gap:9px;
-  margin-bottom:10px;
-}
-
-input{
+.login-box{
   width:100%;
-  background:#07111f;
-  border:1px solid var(--border);
-  border-radius:8px;
-  color:#fff;
-  padding:10px 11px;
-  outline:none;
+  max-width:420px;
+  background:#0d141e;
+  border:1px solid #202b3a;
+  border-radius:14px;
+  padding:28px;
 }
-
-.quick-buttons{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:6px;
-  margin:9px 0;
-}
-
-.quick-buttons button{
-  border:1px solid var(--border);
-  background:#0a1625;
-  color:#9fb2c5;
-  padding:7px 4px;
-  border-radius:7px;
-}
-
-.trade-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:10px;
-}
-
-.buy,.sell{
-  border:0;
-  border-radius:8px;
-  padding:10px;
-  font-weight:750;
-}
-
-.buy{
-  background:var(--green);
-  color:#03140b;
-}
-
-.sell{
-  background:var(--red);
-  color:#25040a;
-}
-
-.activity-row{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid rgba(130,180,230,.08);
-  font-size:12px;
-}
-
-.activity-row:last-child{border-bottom:0}
-
-.chat-messages{
-  height:190px;
-  overflow:auto;
-  background:#07111d;
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:10px;
-  margin-bottom:9px;
-}
-
-.message{
-  margin-bottom:10px;
-  font-size:12px;
-}
-
-.message-name{
-  color:var(--cyan);
-  font-weight:700;
+.login-box h1{text-align:center}
+.login-box .subtitle{
+  text-align:center;
+  margin-bottom:25px;
 }
 
 .notice{
-  margin-top:18px;
-  border:1px solid rgba(67,217,255,.13);
-  background:rgba(67,217,255,.04);
-  color:#7894ac;
-  border-radius:10px;
-  padding:12px 14px;
+  padding:11px 13px;
+  border-radius:7px;
+  background:#111d2b;
+  color:#9eabba;
+  margin-bottom:15px;
+  font-size:13px;
+}
+
+.empty{
+  text-align:center;
+  padding:35px 10px;
+  color:#758295;
+}
+
+.chat-box{
+  height:500px;
+  display:flex;
+  flex-direction:column;
+}
+.chat-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:8px;
+  background:#080e16;
+  border:1px solid #1c2735;
+  border-radius:8px;
+  margin-bottom:12px;
+}
+.chat-message{
+  padding:9px 11px;
+  margin-bottom:8px;
+  background:#111b28;
+  border-radius:8px;
+}
+.chat-message strong{color:#32d583}
+.chat-time{
+  color:#69778a;
   font-size:11px;
+  margin-left:7px;
+}
+.chat-text{
+  margin-top:4px;
+  color:#d7dee8;
+  word-break:break-word;
+}
+.chat-input{
+  display:flex;
+  gap:8px;
+}
+.chat-input input{flex:1}
+
+.modal-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  z-index:50;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modal-bg.show{display:flex}
+.modal{
+  width:100%;
+  max-width:430px;
+  background:#0d141e;
+  border:1px solid #29384b;
+  border-radius:12px;
+  padding:22px;
+}
+.modal-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:18px;
 }
 
-@media(max-width:1050px){
+.login-tabs{
+  display:flex;
+  gap:5px;
+  margin-bottom:20px;
+}
+.login-tabs button{flex:1}
 
-  .sidebar{width:75px}
+.small{
+  font-size:12px;
+  color:#7f8da0;
+}
 
-  .brand-title,
-  .brand-sub,
-  .nav-title{display:none}
-
-  .brand{padding:10px 8px 25px}
-
-  .nav button{
-    text-align:center;
+@media(max-width:800px){
+  .sidebar{width:72px}
+  .navbtn{
     font-size:0;
+    text-align:center;
+    padding:13px 5px;
   }
-
-  .main{
-    margin-left:75px;
-    width:calc(100% - 75px);
-  }
-
+  .navbtn::first-letter{font-size:18px}
   .grid{grid-template-columns:1fr}
+  .main{padding:15px}
+  .userbox .username{display:none}
 }
 
-@media(max-width:700px){
-
-  .content{padding:18px}
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .hero{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .metrics{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .metric:nth-child(2){
-    border-right:0;
-  }
-
-  .topbar{padding:0 15px}
+@media(max-width:520px){
+  .topbar{padding:0 12px}
+  .logo{font-size:18px}
+  .stock-row{align-items:flex-start;flex-direction:column}
+  .chat-box{height:450px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="app">
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <h1>MARKET ARCADE</h1>
+    <div class="subtitle">Virtual stock market</div>
 
-<aside class="sidebar">
+    <div class="login-tabs">
+      <button id="loginTab" class="btn btn-green" onclick="showLoginMode('login')">Login</button>
+      <button id="createTab" class="btn btn-dark" onclick="showLoginMode('create')">Create Account</button>
+    </div>
 
-  <div class="brand">
-    <div class="brand-title">Market Arcade</div>
-    <div class="brand-sub">Virtual trading terminal</div>
-  </div>
-
-  <div class="nav">
-
-    <div class="nav-title">Market</div>
-
-    <button class="active">▣ &nbsp; Dashboard</button>
-    <button>◈ &nbsp; Market</button>
-    <button>▤ &nbsp; Portfolio</button>
-    <button>♧ &nbsp; Friends</button>
-    <button>🏆 &nbsp; Leaderboard</button>
-    <button>＋ &nbsp; Create Stock</button>
-    <button>⚙ &nbsp; Operator</button>
-
-    <div class="nav-title">Account</div>
-
-    <button>● &nbsp; Profile</button>
-    <button>↪ &nbsp; Sign Out</button>
-
-  </div>
-
-</aside>
-
-
-<main class="main">
-
-<header class="topbar">
-
-  <div class="market-status">
-    <span class="dot"></span>
-    Market Open
-    <span class="muted">•</span>
-    24 Online
-  </div>
-
-  <button class="account">Trader</button>
-
-</header>
-
-
-<div class="content">
-
-<section class="hero">
-
-  <div>
-    <h1>Good afternoon, trader.</h1>
-    <p>Trade fictional stocks in the Market Arcade.</p>
-  </div>
-
-  <div class="hero-actions">
-    <button class="btn">＋ Watchlist</button>
-    <button class="btn primary">＋ Add Funds</button>
-  </div>
-
-</section>
-
-
-<section class="stats">
-
-  <div class="stat">
-    <div class="stat-label">Virtual Cash</div>
-    <div class="stat-value" id="cash">$100,000</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">Portfolio Value</div>
-    <div class="stat-value" id="portfolio">$104,280</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">Online Traders</div>
-    <div class="stat-value">24</div>
-  </div>
-
-  <div class="stat">
-    <div class="stat-label">Leaderboard Rank</div>
-    <div class="stat-value">#7</div>
-  </div>
-
-</section>
-
-
-<section class="grid">
-
-<div class="card">
-
-  <div class="card-head">
-
-    <div class="stock-name">
-
-      <div class="stock-icon">C</div>
-
-      <div>
-        <div class="ticker">COOL</div>
-        <div class="company">Cool Industries</div>
+    <div id="loginForm">
+      <div class="form-group">
+        <label>Username</label>
+        <input id="loginUsername" autocomplete="username">
       </div>
 
-    </div>
-
-    <div class="price">
-
-      <div class="price-main" id="price">$10.42</div>
-
-      <div class="change green" id="change">
-        +0.00%
+      <div class="form-group">
+        <label>Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password">
       </div>
 
+      <button class="btn btn-green" style="width:100%" onclick="login()">Login</button>
     </div>
 
-  </div>
+    <div id="createForm" style="display:none">
+      <div class="form-group">
+        <label>Username</label>
+        <input id="createUsername">
+      </div>
 
+      <div class="form-group">
+        <label>Password</label>
+        <input id="createPassword" type="password">
+      </div>
 
-  <div class="chart-wrap">
-    <canvas id="chart"></canvas>
-  </div>
-
-
-  <div class="metrics">
-
-    <div class="metric">
-      <div class="metric-label">Shareholders</div>
-      <div class="metric-value">18</div>
+      <button class="btn btn-green" style="width:100%" onclick="createAccount()">Create Account</button>
     </div>
 
-    <div class="metric">
-      <div class="metric-label">Your Shares</div>
-      <div class="metric-value" id="shares">250</div>
+    <div id="loginMessage" style="margin-top:15px"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+
+  <div class="topbar">
+    <div class="logo">MARKET <span>ARCADE</span></div>
+
+    <div class="userbox">
+      <span class="username" id="topUsername"></span>
+      <span class="cash" id="topCash">$100.00</span>
+      <button class="btn btn-dark" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <button class="navbtn active" onclick="page('dashboard',this)">📊 Dashboard</button>
+      <button class="navbtn" onclick="page('market',this)">📈 Market</button>
+      <button class="navbtn" onclick="page('portfolio',this)">💼 Portfolio</button>
+      <button class="navbtn" onclick="page('friends',this)">👥 Friends</button>
+      <button class="navbtn" onclick="page('chat',this)">💬 Chat</button>
+      <button class="navbtn" onclick="page('leaderboard',this)">🏆 Leaderboard</button>
+      <button class="navbtn" onclick="page('createStock',this)">➕ Create Stock</button>
+      <button class="navbtn" onclick="page('operator',this)">⚙️ Operator</button>
+    </aside>
+
+    <main class="main">
+
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="page active">
+        <h1>Dashboard</h1>
+        <p>Welcome back, <span id="welcomeName"></span>.</p>
+
+        <div class="grid">
+          <div class="stat">
+            <div class="stat-label">CASH</div>
+            <div class="stat-value" id="dashCash">$100.00</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">PORTFOLIO VALUE</div>
+            <div class="stat-value" id="dashPortfolio">$0.00</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">TOTAL WEALTH</div>
+            <div class="stat-value" id="dashWealth">$100.00</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Market Overview</h2>
+          <div id="dashboardStocks"></div>
+        </div>
+      </section>
+
+      <!-- MARKET -->
+      <section id="market" class="page">
+        <h1>Market</h1>
+        <p>Trade fictional stocks using virtual money.</p>
+        <div id="marketList"></div>
+      </section>
+
+      <!-- PORTFOLIO -->
+      <section id="portfolio" class="page">
+        <h1>Portfolio</h1>
+        <p>Your current virtual holdings.</p>
+
+        <div class="card">
+          <div id="portfolioContent"></div>
+        </div>
+      </section>
+
+      <!-- FRIENDS -->
+      <section id="friends" class="page">
+        <h1>Friends</h1>
+        <p>Add other accounts by username.</p>
+
+        <div class="card">
+          <div class="form-group">
+            <label>Username</label>
+            <input id="friendUsername" placeholder="Enter username">
+          </div>
+          <button class="btn btn-green" onclick="addFriend()">Add Friend</button>
+          <div id="friendMessage" style="margin-top:12px"></div>
+        </div>
+
+        <div class="card">
+          <h2>Your Friends</h2>
+          <div id="friendsList"></div>
+        </div>
+      </section>
+
+      <!-- CHAT -->
+      <section id="chat" class="page">
+        <h1>Chat</h1>
+        <p>Talk with players on this browser.</p>
+
+        <div class="notice">
+          Local beta chat — messages are saved on this device. Online shared chat can be added later.
+        </div>
+
+        <div class="card chat-box">
+          <div id="chatMessages" class="chat-messages"></div>
+
+          <div class="chat-input">
+            <input
+              id="chatInput"
+              maxlength="250"
+              placeholder="Type a message..."
+              onkeydown="if(event.key==='Enter') sendChatMessage()"
+            >
+            <button class="btn btn-green" onclick="sendChatMessage()">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- LEADERBOARD -->
+      <section id="leaderboard" class="page">
+        <h1>Leaderboard</h1>
+        <p>Players ranked by total virtual wealth.</p>
+
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>PLAYER</th>
+                <th>CASH</th>
+                <th>PORTFOLIO</th>
+                <th>TOTAL</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- CREATE STOCK -->
+      <section id="createStock" class="page">
+        <h1>Create Stock</h1>
+        <p>Create your own fictional company.</p>
+
+        <div class="card">
+          <div class="notice">
+            Current creation fee:
+            <strong id="creationFeeDisplay">$100,000,000.00</strong>
+          </div>
+
+          <div class="form-group">
+            <label>Stock Symbol</label>
+            <input id="newStockSymbol" maxlength="6" placeholder="EXAMPLE">
+          </div>
+
+          <div class="form-group">
+            <label>Company Name</label>
+            <input id="newStockName" placeholder="Example Holdings">
+          </div>
+
+          <div class="form-group">
+            <label>Starting Price</label>
+            <input id="newStockPrice" type="number" min="0.01" step="0.01" value="10">
+          </div>
+
+          <button class="btn btn-green" onclick="createStock()">Create Stock</button>
+
+          <div id="stockCreateMessage" style="margin-top:15px"></div>
+        </div>
+      </section>
+
+      <!-- OPERATOR -->
+      <section id="operator" class="page">
+        <h1>Operator</h1>
+        <p>Game management panel.</p>
+
+        <div id="operatorLogin">
+          <div class="card">
+            <div class="form-group">
+              <label>Operator Password</label>
+              <input id="operatorPassword" type="password">
+            </div>
+            <button class="btn btn-green" onclick="operatorLogin()">Enter Operator Panel</button>
+            <div id="operatorMessage" style="margin-top:12px"></div>
+          </div>
+        </div>
+
+        <div id="operatorPanel" style="display:none">
+
+          <div class="grid">
+            <div class="stat">
+              <div class="stat-label">PLAYERS</div>
+              <div class="stat-value" id="opPlayers">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">STOCKS</div>
+              <div class="stat-value" id="opStocks">0</div>
+            </div>
+            <div class="stat">
+              <div class="stat-label">COOL PRICE</div>
+              <div class="stat-value" id="opCoolPrice">$0</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Market Settings</h2>
+
+            <div class="form-group">
+              <label>Stock Creation Fee</label>
+              <input id="operatorFee" type="number">
+            </div>
+
+            <button class="btn btn-green" onclick="changeCreationFee()">Save Creation Fee</button>
+
+            <button class="btn btn-red" onclick="resetDemo()" style="margin-left:8px">
+              Reset Demo
+            </button>
+          </div>
+
+          <div class="card">
+            <h2>Players</h2>
+            <div id="operatorPlayers"></div>
+          </div>
+
+          <div class="card">
+            <h2>Stocks</h2>
+            <div id="operatorStocks"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- TRADE MODAL -->
+<div id="tradeModal" class="modal-bg">
+  <div class="modal">
+    <div class="modal-title" id="tradeTitle">Trade</div>
+
+    <div class="form-group">
+      <label>Shares</label>
+      <input id="tradeShares" type="number" min="1" step="1" value="1">
     </div>
 
-    <div class="metric">
-      <div class="metric-label">Day High</div>
-      <div class="metric-value" id="high">$10.71</div>
+    <div id="tradeInfo" class="notice"></div>
+
+    <div class="actions">
+      <button class="btn btn-green" onclick="executeTrade('buy')">Buy</button>
+      <button class="btn btn-red" onclick="executeTrade('sell')">Sell</button>
+      <button class="btn btn-dark" onclick="closeTrade()">Cancel</button>
     </div>
-
-    <div class="metric">
-      <div class="metric-label">Day Low</div>
-      <div class="metric-value" id="low">$9.83</div>
-    </div>
-
   </div>
-
 </div>
-
-
-<div class="right">
-
-
-<div class="card quick">
-
-  <div class="section-title">Quick Trade</div>
-
-  <div class="trade-row">
-
-    <input value="COOL" readonly>
-
-    <input
-      id="amount"
-      type="number"
-      value="25"
-      min="1"
-    >
-
-  </div>
-
-
-  <div class="quick-buttons">
-
-    <button onclick="setAmount(10)">10</button>
-    <button onclick="setAmount(25)">25</button>
-    <button onclick="setAmount(50)">50</button>
-    <button onclick="setAmount(100)">100</button>
-
-  </div>
-
-
-  <div class="trade-actions">
-
-    <button class="buy" onclick="buyShares()">
-      Buy COOL
-    </button>
-
-    <button class="sell" onclick="sellShares()">
-      Sell COOL
-    </button>
-
-  </div>
-
-</div>
-
-
-<div class="card activity">
-
-  <div class="section-title">
-    Market Activity
-  </div>
-
-  <div class="activity-row">
-    <span class="muted">Market</span>
-    <span class="green">LIVE</span>
-  </div>
-
-  <div class="activity-row">
-    <span class="muted">Stock</span>
-    <span>COOL</span>
-  </div>
-
-  <div class="activity-row">
-    <span class="muted">Market Value</span>
-    <span id="marketValue">$10.42M</span>
-  </div>
-
-</div>
-
-
-<div class="card chat">
-
-  <div class="section-title">
-    Live Chat
-  </div>
-
-  <div class="chat-messages" id="chat">
-
-    <div class="message">
-      <span class="message-name">Trader-2041</span>
-      COOL looking strong today.
-    </div>
-
-    <div class="message">
-      <span class="message-name">Trader-7812</span>
-      Just bought more.
-    </div>
-
-    <div class="message">
-      <span class="message-name">Trader-4420</span>
-      🚀
-    </div>
-
-  </div>
-
-  <div class="trade-row">
-
-    <input
-      id="chatInput"
-      placeholder="Message traders..."
-      maxlength="100"
-    >
-
-    <button class="btn primary" onclick="sendMessage()">
-      Send
-    </button>
-
-  </div>
-
-</div>
-
-
-</div>
-
-</section>
-
-
-<div class="notice">
-
-  <b>Market Arcade Beta:</b>
-  This is a fictional paper-trading game. All money is virtual.
-
-</div>
-
-</div>
-
-</main>
-
-</div>
-
 
 <script>
+const DB_KEY = "MARKET_ARCADE_POLISHED_DATA";
+const SESSION_KEY = "MARKET_ARCADE_POLISHED_SESSION";
+const OPERATOR_PASSWORD = "MA-ADMIN-2026";
 
-let price = 10.42;
-let previousPrice = 10.42;
+let db = loadDB();
+let currentUser = null;
+let selectedStockId = null;
+let operatorUnlocked = false;
 
-let cash = 100000;
-let shares = 250;
+function defaultDB(){
+  return {
+    settings:{
+      creationFee:100000000
+    },
+    users:[],
+    stocks:[
+      {
+        id:"cool",
+        symbol:"COOL",
+        name:"Cool Holdings",
+        price:10,
+        previousPrice:10,
+        creator:"System",
+        shareholders:0,
+        history:[10],
+        candles:[],
+        suspended:false,
+        createdAt:Date.now()
+      }
+    ],
+    chat:[]
+  };
+}
 
-let history = [
-  9.96,
-  10.04,
-  10.11,
-  10.07,
-  10.19,
-  10.14,
-  10.28,
-  10.21,
-  10.35,
-  10.42
-];
+function loadDB(){
+  try{
+    const saved=localStorage.getItem(DB_KEY);
+    if(!saved)return defaultDB();
 
+    const data=JSON.parse(saved);
 
-function money(value){
+    if(!data.settings)data.settings={creationFee:100000000};
+    if(!data.users)data.users=[];
+    if(!data.stocks)data.stocks=[];
+    if(!data.chat)data.chat=[];
 
-  return "$" + value.toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
+    if(!data.stocks.length){
+      data.stocks=defaultDB().stocks;
     }
-  );
 
-}
-
-
-function updateUI(){
-
-  document.getElementById("price").textContent =
-    money(price);
-
-  document.getElementById("cash").textContent =
-    "$" + Math.round(cash).toLocaleString();
-
-  document.getElementById("shares").textContent =
-    shares.toLocaleString();
-
-  const portfolio =
-    cash + shares * price;
-
-  document.getElementById("portfolio").textContent =
-    "$" + Math.round(portfolio).toLocaleString();
-
-  const change =
-    ((price - previousPrice) /
-    previousPrice) * 100;
-
-  const changeElement =
-    document.getElementById("change");
-
-  changeElement.textContent =
-    (change >= 0 ? "+" : "") +
-    change.toFixed(2) +
-    "%";
-
-  changeElement.className =
-    "change " +
-    (change >= 0 ? "green" : "red");
-
-  document.getElementById("high").textContent =
-    money(Math.max(...history));
-
-  document.getElementById("low").textContent =
-    money(Math.min(...history));
-
-  document.getElementById("marketValue").textContent =
-    "$" +
-    (price * 1000000 / 1000000)
-      .toFixed(2) +
-    "M";
-
-}
-
-
-function moveMarket(){
-
-  previousPrice = price;
-
-  /*
-    The market can move up or down,
-    but has a small upward long-term bias.
-  */
-
-  const drift = 0.009;
-
-  const randomMove =
-    (Math.random() * 0.14) - 0.07;
-
-  price =
-    price * (1 + drift + randomMove);
-
-  price =
-    Math.max(0.25,price);
-
-  price =
-    Number(price.toFixed(2));
-
-  history.push(price);
-
-  if(history.length > 60){
-    history.shift();
-  }
-
-  updateUI();
-  drawChart();
-
-}
-
-
-function setAmount(number){
-
-  document.getElementById("amount").value =
-    number;
-
-}
-
-
-function buyShares(){
-
-  const amount =
-    Number(document.getElementById("amount").value);
-
-  if(!Number.isInteger(amount) || amount <= 0){
-    alert("Enter a valid number of shares.");
-    return;
-  }
-
-  const cost =
-    amount * price;
-
-  if(cost > cash){
-
-    alert("You don't have enough virtual cash.");
-
-    return;
-
-  }
-
-  cash -= cost;
-  shares += amount;
-
-  updateUI();
-
-}
-
-
-function sellShares(){
-
-  const amount =
-    Number(document.getElementById("amount").value);
-
-  if(!Number.isInteger(amount) || amount <= 0){
-    alert("Enter a valid number of shares.");
-    return;
-  }
-
-  if(amount > shares){
-
-    alert("You don't own enough COOL shares.");
-
-    return;
-
-  }
-
-  cash += amount * price;
-  shares -= amount;
-
-  updateUI();
-
-}
-
-
-function sendMessage(){
-
-  const input =
-    document.getElementById("chatInput");
-
-  const text =
-    input.value.trim();
-
-  if(!text) return;
-
-  const message =
-    document.createElement("div");
-
-  message.className = "message";
-
-  message.innerHTML =
-    '<span class="message-name">You</span> ' +
-    text.replace(/</g,"&lt;");
-
-  document.getElementById("chat")
-    .appendChild(message);
-
-  input.value = "";
-
-  const chat =
-    document.getElementById("chat");
-
-  chat.scrollTop =
-    chat.scrollHeight;
-
-}
-
-
-function drawChart(){
-
-  const canvas =
-    document.getElementById("chart");
-
-  const ctx =
-    canvas.getContext("2d");
-
-  const width =
-    canvas.clientWidth;
-
-  const height =
-    canvas.clientHeight;
-
-  const dpr =
-    window.devicePixelRatio || 1;
-
-  canvas.width =
-    width * dpr;
-
-  canvas.height =
-    height * dpr;
-
-  ctx.setTransform(
-    dpr,0,0,dpr,0,0
-  );
-
-  ctx.clearRect(
-    0,0,width,height
-  );
-
-
-  const min =
-    Math.min(...history);
-
-  const max =
-    Math.max(...history);
-
-  const range =
-    Math.max(max-min,0.01);
-
-
-  ctx.strokeStyle =
-    "rgba(130,180,230,.08)";
-
-  ctx.lineWidth = 1;
-
-
-  for(let i=0;i<5;i++){
-
-    const y =
-      20 +
-      (height-40) * i / 4;
-
-    ctx.beginPath();
-
-    ctx.moveTo(10,y);
-
-    ctx.lineTo(width-10,y);
-
-    ctx.stroke();
-
-  }
-
-
-  const points =
-    history.map((value,index) => {
-
-      const x =
-        10 +
-        (width-20) *
-        index /
-        (history.length-1);
-
-      const y =
-        height -
-        20 -
-        ((value-min)/range) *
-        (height-40);
-
-      return {x,y};
-
+    data.stocks.forEach(stock=>{
+      if(!stock.history)stock.history=[stock.price];
+      if(!stock.candles)stock.candles=[];
+      if(stock.suspended===undefined)stock.suspended=false;
     });
 
-
-  ctx.beginPath();
-
-  ctx.moveTo(
-    points[0].x,
-    height-20
-  );
-
-  points.forEach(point => {
-
-    ctx.lineTo(
-      point.x,
-      point.y
-    );
-
-  });
-
-  ctx.lineTo(
-    points[points.length-1].x,
-    height-20
-  );
-
-  ctx.closePath();
-
-  ctx.fillStyle =
-    "rgba(67,217,255,.07)";
-
-  ctx.fill();
-
-
-  ctx.beginPath();
-
-  points.forEach((point,index) => {
-
-    if(index === 0){
-
-      ctx.moveTo(
-        point.x,
-        point.y
-      );
-
-    }else{
-
-      ctx.lineTo(
-        point.x,
-        point.y
-      );
-
-    }
-
-  });
-
-
-  ctx.strokeStyle =
-    "#43d9ff";
-
-  ctx.lineWidth = 2;
-
-  ctx.stroke();
-
-
-  const last =
-    points[points.length-1];
-
-  ctx.beginPath();
-
-  ctx.arc(
-    last.x,
-    last.y,
-    4,
-    0,
-    Math.PI*2
-  );
-
-  ctx.fillStyle =
-    "#43d9ff";
-
-  ctx.fill();
-
+    return data;
+  }catch(e){
+    return defaultDB();
+  }
 }
 
+function saveDB(){
+  localStorage.setItem(DB_KEY,JSON.stringify(db));
+}
 
-setInterval(
-  moveMarket,
-  5000
-);
+function escapeHtml(value){
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-window.addEventListener(
-  "resize",
-  drawChart
-);
+function money(n){
+  return "$"+Number(n||0).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
 
+function findUser(username){
+  return db.users.find(u=>u.username.toLowerCase()===username.toLowerCase());
+}
 
-updateUI();
-drawChart();
+function getStock(id){
+  return db.stocks.find(s=>s.id===id);
+}
 
+function getHoldings(user,stockId){
+  if(!user.holdings)user.holdings={};
+  return Number(user.holdings[stockId]||0);
+}
+
+function portfolioValue(user){
+  let total=0;
+
+  db.stocks.forEach(stock=>{
+    total+=getHoldings(user,stock.id)*stock.price;
+  });
+
+  return total;
+}
+
+function wealth(user){
+  return Number(user.cash||0)+portfolioValue(user);
+}
+
+/* LOGIN */
+
+function showLoginMode(mode){
+  document.getElementById("loginForm").style.display=mode==="login"?"block":"none";
+  document.getElementById("createForm").style.display=mode==="create"?"block":"none";
+
+  document.getElementById("loginTab").className=
+    "btn "+(mode==="login"?"btn-green":"btn-dark");
+
+  document.getElementById("createTab").className=
+    "btn "+(mode==="create"?"btn-green":"btn-dark");
+
+  document.getElementById("loginMessage").innerHTML="";
+}
+
+function createAccount(){
+  const username=document.getElementById("createUsername").value.trim();
+  const password=document.getElementById("createPassword").value;
+
+  if(username.length<3){
+    showMessage("loginMessage","Username must be at least 3 characters.","red");
+    return;
+  }
+
+  if(password.length<3){
+    showMessage("loginMessage","Password must be at least 3 characters.","red");
+    return;
+  }
+
+  if(findUser(username)){
+    showMessage("loginMessage","That username already exists.","red");
+    return;
+  }
+
+  const user={
+    id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+    username,
+    password,
+    cash:100,
+    holdings:{},
+    friends:[],
+    banned:false,
+    createdAt:Date.now(),
+    lastStockCreation:0
+  };
+
+  db.users.push(user);
+  saveDB();
+
+  showMessage("loginMessage","Account created. You can now log in.","green");
+  showLoginMode("login");
+
+  document.getElementById("loginUsername").value=username;
+}
+
+function login(){
+  const username=document.getElementById("loginUsername").value.trim();
+  const password=document.getElementById("loginPassword").value;
+
+  const user=findUser(username);
+
+  if(!user || user.password!==password){
+    showMessage("loginMessage","Incorrect username or password.","red");
+    return;
+  }
+
+  if(user.banned){
+    showMessage("loginMessage","This account has been banned.","red");
+    return;
+  }
+
+  currentUser=user;
+  localStorage.setItem(SESSION_KEY,user.id);
+
+  openApp();
+}
+
+function logout(){
+  currentUser=null;
+  localStorage.removeItem(SESSION_KEY);
+
+  document.getElementById("app").style.display="none";
+  document.getElementById("loginScreen").style.display="flex";
+}
+
+function openApp(){
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("app").style.display="block";
+
+  updateAll();
+  page("dashboard",document.querySelector(".navbtn"));
+}
+
+function restoreSession(){
+  const id=localStorage.getItem(SESSION_KEY);
+  if(!id)return;
+
+  const user=db.users.find(u=>u.id===id);
+
+  if(user && !user.banned){
+    currentUser=user;
+    openApp();
+  }
+}
+
+/* NAVIGATION */
+
+function page(id,button){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".navbtn").forEach(b=>b.classList.remove("active"));
+
+  if(button)button.classList.add("active");
+
+  updateAll();
+
+  if(id==="chat")renderChat();
+}
+
+/* DASHBOARD */
+
+function updateTop(){
+  if(!currentUser)return;
+
+  document.getElementById("topUsername").textContent=currentUser.username;
+  document.getElementById("topCash").textContent=money(currentUser.cash);
+
+  document.getElementById("welcomeName").textContent=currentUser.username;
+  document.getElementById("dashCash").textContent=money(currentUser.cash);
+  document.getElementById("dashPortfolio").textContent=money(portfolioValue(currentUser));
+  document.getElementById("dashWealth").textContent=money(wealth(currentUser));
+}
+
+function stockRow(stock){
+  const change=stock.price-stock.previousPrice;
+  const cls=change>=0?"up":"down";
+  const sign=change>=0?"+":"";
+
+  return `
+    <div class="stock-row">
+      <div>
+        <div class="stock-name">${escapeHtml(stock.name)}</div>
+        <div class="stock-symbol">${escapeHtml(stock.symbol)}</div>
+      </div>
+
+      <div>
+        <div class="price">${money(stock.price)}</div>
+        <div class="${cls}">${sign}${change.toFixed(2)}</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-green" onclick="openTrade('${stock.id}')">Trade</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderDashboard(){
+  document.getElementById("dashboardStocks").innerHTML=
+    db.stocks.map(stockRow).join("");
+}
+
+/* MARKET */
+
+function renderMarket(){
+  const box=document.getElementById("marketList");
+
+  if(!db.stocks.length){
+    box.innerHTML='<div class="card empty">No stocks available.</div>';
+    return;
+  }
+
+  box.innerHTML=db.stocks.map(stock=>{
+    return `
+      <div class="card">
+        <div class="stock-row">
+          <div>
+            <div class="stock-name">${escapeHtml(stock.name)}</div>
+            <div class="stock-symbol">${escapeHtml(stock.symbol)}</div>
+            <div class="small">
+              Market Value: ${money(stock.price)}
+              · Shareholders: ${stock.shareholders||0}
+            </div>
+          </div>
+
+          <div style="text-align:right">
+            <div style="font-size:24px;font-weight:bold">${money(stock.price)}</div>
+            ${
+              stock.suspended
+              ? '<span class="badge red">SUSPENDED</span>'
+              : '<span class="badge green">TRADING</span>'
+            }
+          </div>
+
+          <div>
+            <button
+              class="btn btn-green"
+              ${stock.suspended?"disabled":""}
+              onclick="openTrade('${stock.id}')">
+              Trade
+            </button>
+          </div>
+        </div>
+
+        <canvas class="chart" id="chart_${stock.id}"></canvas>
+      </div>
+    `;
+  }).join("");
+
+  db.stocks.forEach(stock=>drawChart(stock));
+}
+
+/* CHART */
+
+function drawChart(stock){
+  const canvas=document.getElementById("chart_"+stock.id);
+  if(!canvas)return;
+
+  const rect=canvas.getBoundingClientRect();
+  const ratio=window.devicePixelRatio||1;
+
+  canvas.width=rect.width*ratio;
+  canvas.height=260*ratio;
+
+  const ctx=canvas.getContext("2d");
+  ctx.scale(ratio,ratio);
+
+  const w=rect.width;
+  const h=260;
+
+  ctx.clearRect(0,0,w,h);
+
+  ctx.strokeStyle="#1b2634";
+  ctx.lineWidth=1;
+
+  for(let i=1;i<5;i++){
+    const y=(h/5)*i;
+    ctx.beginPath();
+    ctx.moveTo(0,y);
+    ctx.lineTo(w,y);
+    ctx.stroke();
+  }
+
+  let values=stock.history||[stock.price];
+
+  if(values.length<2){
+    values=[stock.price,stock.price];
+  }
+
+  const min=Math.min(...values);
+  const max=Math.max(...values);
+  const range=(max-min)||1;
+
+  ctx.beginPath();
+
+  values.forEach((value,i)=>{
+    const x=(i/(values.length-1))*w;
+    const y=h-((value-min)/range)*(h-20)-10;
+
+    if(i===0)ctx.moveTo(x,y);
+    else ctx.lineTo(x,y);
+  });
+
+  ctx.strokeStyle=values[values.length-1]>=values[0]?"#32d583":"#ff5d67";
+  ctx.lineWidth=2;
+  ctx.stroke();
+}
+
+/* TRADING */
+
+function openTrade(stockId){
+  const stock=getStock(stockId);
+  if(!stock)return;
+
+  if(stock.suspended){
+    alert("This stock is suspended.");
+    return;
+  }
+
+  selectedStockId=stockId;
+
+  document.getElementById("tradeTitle").textContent=
+    "Trade "+stock.symbol;
+
+  document.getElementById("tradeShares").value=1;
+
+  document.getElementById("tradeInfo").innerHTML=
+    `Current price: <strong>${money(stock.price)}</strong><br>
+     Your shares: <strong>${getHoldings(currentUser,stock.id)}</strong>`;
+
+  document.getElementById("tradeModal").classList.add("show");
+}
+
+function closeTrade(){
+  document.getElementById("tradeModal").classList.remove("show");
+  selectedStockId=null;
+}
+
+function executeTrade(type){
+  const stock=getStock(selectedStockId);
+  if(!stock || stock.suspended)return;
+
+  const shares=Math.floor(Number(document.getElementById("tradeShares").value));
+
+  if(!shares || shares<1){
+    alert("Enter a valid number of shares.");
+    return;
+  }
+
+  const value=shares*stock.price;
+
+  if(type==="buy"){
+    if(currentUser.cash<value){
+      alert("You don't have enough virtual cash.");
+      return;
+    }
+
+    currentUser.cash-=value;
+
+    if(!currentUser.holdings)currentUser.holdings={};
+    currentUser.holdings[stock.id]=
+      getHoldings(currentUser,stock.id)+shares;
+
+  }else{
+    const owned=getHoldings(currentUser,stock.id);
+
+    if(owned<shares){
+      alert("You don't own enough shares.");
+      return;
+    }
+
+    currentUser.cash+=value;
+    currentUser.holdings[stock.id]=owned-shares;
+  }
+
+  updateShareholders(stock);
+
+  saveDB();
+  closeTrade();
+  updateAll();
+}
+
+function updateShareholders(stock){
+  stock.shareholders=db.users.filter(
+    user=>getHoldings(user,stock.id)>0
+  ).length;
+}
+
+/* PORTFOLIO */
+
+function renderPortfolio(){
+  const holdings=db.stocks.filter(
+    stock=>getHoldings(currentUser,stock.id)>0
+  );
+
+  if(!holdings.length){
+    document.getElementById("portfolioContent").innerHTML=
+      '<div class="empty">You do not own any stocks yet.</div>';
+    return;
+  }
+
+  document.getElementById("portfolioContent").innerHTML=holdings.map(stock=>{
+    const shares=getHoldings(currentUser,stock.id);
+    const value=shares*stock.price;
+
+    return `
+      <div class="stock-row">
+        <div>
+          <div class="stock-name">${escapeHtml(stock.name)}</div>
+          <div class="stock-symbol">${escapeHtml(stock.symbol)}</div>
+        </div>
+
+        <div>
+          ${shares} shares
+        </div>
+
+        <div class="price">
+          ${money(value)}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* FRIENDS */
+
+function addFriend(){
+  const name=document.getElementById("friendUsername").value.trim();
+
+  if(!name)return;
+
+  const friend=findUser(name);
+
+  if(!friend){
+    showMessage("friendMessage","User not found.","red");
+    return;
+  }
+
+  if(friend.id===currentUser.id){
+    showMessage("friendMessage","You can't add yourself.","red");
+    return;
+  }
+
+  if(!currentUser.friends)currentUser.friends=[];
+
+  if(currentUser.friends.includes(friend.id)){
+    showMessage("friendMessage","Already added.","red");
+    return;
+  }
+
+  currentUser.friends.push(friend.id);
+
+  saveDB();
+
+  document.getElementById("friendUsername").value="";
+  showMessage("friendMessage","Friend added.","green");
+
+  renderFriends();
+}
+
+function renderFriends(){
+  const ids=currentUser.friends||[];
+
+  if(!ids.length){
+    document.getElementById("friendsList").innerHTML=
+      '<div class="empty">You have no friends yet.</div>';
+    return;
+  }
+
+  document.getElementById("friendsList").innerHTML=ids.map(id=>{
+    const friend=db.users.find(u=>u.id===id);
+
+    if(!friend)return "";
+
+    return `
+      <div class="stock-row">
+        <div>
+          <div class="stock-name">${escapeHtml(friend.username)}</div>
+          <div class="small">Virtual wealth: ${money(wealth(friend))}</div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+/* CHAT */
+
+function sendChatMessage(){
+  const input=document.getElementById("chatInput");
+  const text=input.value.trim();
+
+  if(!text)return;
+
+  if(text.length>250)return;
+
+  db.chat.push({
+    id:"msg_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+    username:currentUser.username,
+    text:text,
+    time:Date.now()
+  });
+
+  if(db.chat.length>200){
+    db.chat=db.chat.slice(-200);
+  }
+
+  input.value="";
+
+  saveDB();
+  renderChat();
+}
+
+function renderChat(){
+  const box=document.getElementById("chatMessages");
+  if(!box)return;
+
+  if(!db.chat.length){
+    box.innerHTML='<div class="empty">No messages yet. Start the conversation.</div>';
+    return;
+  }
+
+  box.innerHTML=db.chat.map(message=>{
+    const date=new Date(message.time);
+
+    return `
+      <div class="chat-message">
+        <div>
+          <strong>${escapeHtml(message.username)}</strong>
+          <span class="chat-time">${date.toLocaleTimeString([],{
+            hour:"numeric",
+            minute:"2-digit"
+          })}</span>
+        </div>
+
+        <div class="chat-text">${escapeHtml(message.text)}</div>
+      </div>
+    `;
+  }).join("");
+
+  box.scrollTop=box.scrollHeight;
+}
+
+/* LEADERBOARD */
+
+function renderLeaderboard(){
+  const sorted=[...db.users].sort((a,b)=>wealth(b)-wealth(a));
+
+  document.getElementById("leaderboardBody").innerHTML=
+    sorted.map((user,index)=>{
+      return `
+        <tr>
+          <td>${index+1}</td>
+          <td>${escapeHtml(user.username)}</td>
+          <td>${money(user.cash)}</td>
+          <td>${money(portfolioValue(user))}</td>
+          <td><strong>${money(wealth(user))}</strong></td>
+        </tr>
+      `;
+    }).join("");
+}
+
+/* CREATE STOCK */
+
+function renderCreationFee(){
+  document.getElementById("creationFeeDisplay").textContent=
+    money(db.settings.creationFee);
+}
+
+function createStock(){
+  const symbol=document.getElementById("newStockSymbol").value
+    .trim()
+    .toUpperCase();
+
+  const name=document.getElementById("newStockName").value.trim();
+  const price=Number(document.getElementById("newStockPrice").value);
+
+  if(!/^[A-Z0-9]{1,6}$/.test(symbol)){
+    showMessage("stockCreateMessage","Symbol must be 1–6 letters/numbers.","red");
+    return;
+  }
+
+  if(!name){
+    showMessage("stockCreateMessage","Enter a company name.","red");
+    return;
+  }
+
+  if(!price || price<=0){
+    showMessage("stockCreateMessage","Enter a valid starting price.","red");
+    return;
+  }
+
+  if(db.stocks.some(s=>s.symbol===symbol)){
+    showMessage("stockCreateMessage","That symbol already exists.","red");
+    return;
+  }
+
+  const now=new Date();
+
+  if(currentUser.lastStockCreation){
+    const last=new Date(currentUser.lastStockCreation);
+
+    if(
+      last.getFullYear()===now.getFullYear() &&
+      last.getMonth()===now.getMonth() &&
+      last.getDate()===now.getDate()
+    ){
+      showMessage(
+        "stockCreateMessage",
+        "You can only create one stock per day.",
+        "red"
+      );
+      return;
+    }
+  }
+
+  if(currentUser.cash<db.settings.creationFee){
+    showMessage(
+      "stockCreateMessage",
+      "You don't have enough virtual money to create a stock.",
+      "red"
+    );
+    return;
+  }
+
+  currentUser.cash-=db.settings.creationFee;
+  currentUser.lastStockCreation=Date.now();
+
+  db.stocks.push({
+    id:"stock_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+    symbol,
+    name,
+    price,
+    previousPrice:price,
+    creator:currentUser.username,
+    shareholders:0,
+    history:[price],
+    candles:[],
+    suspended:false,
+    createdAt:Date.now()
+  });
+
+  saveDB();
+
+  document.getElementById("newStockSymbol").value="";
+  document.getElementById("newStockName").value="";
+  document.getElementById("newStockPrice").value="10";
+
+  showMessage(
+    "stockCreateMessage",
+    "Stock created successfully.",
+    "green"
+  );
+
+  updateAll();
+}
+
+/* OPERATOR */
+
+function operatorLogin(){
+  const password=document.getElementById("operatorPassword").value;
+
+  if(password!==OPERATOR_PASSWORD){
+    showMessage("operatorMessage","Incorrect operator password.","red");
+    return;
+  }
+
+  operatorUnlocked=true;
+
+  document.getElementById("operatorLogin").style.display="none";
+  document.getElementById("operatorPanel").style.display="block";
+
+  renderOperator();
+}
+
+function renderOperator(){
+  document.getElementById("opPlayers").textContent=db.users.length;
+  document.getElementById("opStocks").textContent=db.stocks.length;
+
+  const cool=db.stocks.find(s=>s.symbol==="COOL");
+
+  document.getElementById("opCoolPrice").textContent=
+    cool?money(cool.price):"N/A";
+
+  document.getElementById("operatorFee").value=
+    db.settings.creationFee;
+
+  document.getElementById("operatorPlayers").innerHTML=
+    db.users.map(user=>{
+      return `
+        <div class="stock-row">
+          <div>
+            <div class="stock-name">${escapeHtml(user.username)}</div>
+            <div class="small">Wealth: ${money(wealth(user))}</div>
+          </div>
+
+          <div class="actions">
+            <button
+              class="btn ${user.banned?"btn-green":"btn-red"}"
+              onclick="toggleBan('${user.id}')">
+              ${user.banned?"Unban":"Ban"}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  document.getElementById("operatorStocks").innerHTML=
+    db.stocks.map(stock=>{
+      return `
+        <div class="stock-row">
+          <div>
+            <div class="stock-name">
+              ${escapeHtml(stock.symbol)}
+            </div>
+            <div class="small">
+              ${escapeHtml(stock.name)} · ${money(stock.price)}
+            </div>
+          </div>
+
+          <div class="actions">
+            <button
+              class="btn ${stock.suspended?"btn-green":"btn-red"}"
+              onclick="toggleSuspend('${stock.id}')">
+              ${stock.suspended?"Unsuspend":"Suspend"}
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+}
+
+function toggleBan(userId){
+  const user=db.users.find(u=>u.id===userId);
+  if(!user)return;
+
+  user.banned=!user.banned;
+
+  if(user.banned && localStorage.getItem(SESSION_KEY)===user.id){
+    logout();
+    return;
+  }
+
+  saveDB();
+  renderOperator();
+}
+
+function toggleSuspend(stockId){
+  const stock=getStock(stockId);
+  if(!stock)return;
+
+  stock.suspended=!stock.suspended;
+
+  saveDB();
+  renderOperator();
+  updateAll();
+}
+
+function changeCreationFee(){
+  const fee=Number(document.getElementById("operatorFee").value);
+
+  if(!fee || fee<0){
+    alert("Enter a valid fee.");
+    return;
+  }
+
+  db.settings.creationFee=fee;
+
+  saveDB();
+  renderOperator();
+  renderCreationFee();
+}
+
+function resetDemo(){
+  if(!confirm("Reset all local accounts, stocks, and chat?"))return;
+
+  localStorage.removeItem(DB_KEY);
+  localStorage.removeItem(SESSION_KEY);
+
+  location.reload();
+}
+
+/* MARKET ENGINE */
+
+function marketTick(){
+  if(!db.stocks.length)return;
+
+  db.stocks.forEach(stock=>{
+    if(stock.suspended)return;
+
+    const oldPrice=stock.price;
+
+    /*
+      Long-term upward drift with random movement.
+      This is intentionally an arcade-style market rather than
+      a realistic financial market.
+    */
+    const drift=0.009;
+    const swing=(Math.random()*0.14)-0.07;
+
+    let newPrice=oldPrice*(1+drift+swing);
+
+    if(newPrice<0.01)newPrice=0.01;
+
+    stock.previousPrice=oldPrice;
+    stock.price=Number(newPrice.toFixed(2));
+
+    if(!stock.history)stock.history=[];
+    stock.history.push(stock.price);
+
+    if(stock.history.length>80){
+      stock.history.shift();
+    }
+
+    updateShareholders(stock);
+  });
+
+  saveDB();
+  updateAll();
+}
+
+/* GENERAL */
+
+function updateAll(){
+  if(!currentUser)return;
+
+  const fresh=db.users.find(u=>u.id===currentUser.id);
+
+  if(fresh){
+    currentUser=fresh;
+  }
+
+  updateTop();
+  renderDashboard();
+  renderMarket();
+  renderPortfolio();
+  renderFriends();
+  renderLeaderboard();
+  renderCreationFee();
+
+  if(operatorUnlocked){
+    renderOperator();
+  }
+
+  if(document.getElementById("chat").classList.contains("active")){
+    renderChat();
+  }
+}
+
+function showMessage(id,text,type){
+  const el=document.getElementById(id);
+
+  el.innerHTML=
+    `<span class="${type==="green"?"up":"down"}">${escapeHtml(text)}</span>`;
+}
+
+window.addEventListener("resize",()=>{
+  db.stocks.forEach(stock=>drawChart(stock));
+});
+
+/* Start */
+
+restoreSession();
+
+setInterval(marketTick,5000);
 </script>
 
 </body>
