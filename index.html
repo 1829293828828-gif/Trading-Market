@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Market Arcade</title>
 
 <style>
@@ -12,23 +12,26 @@
   --panel2:#101f2b;
   --line:#203541;
   --muted:#7f94a5;
-  --text:#e8f1f7;
+  --text:#edf6fb;
   --green:#35df91;
   --red:#ff626d;
   --blue:#55aaff;
-  --gold:#ffd166;
+  --yellow:#ffd166;
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family:Inter,Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:var(--bg);
   color:var(--text);
 }
 
-button,input,select{
+button,
+input{
   font:inherit;
 }
 
@@ -40,7 +43,9 @@ button{
   display:none!important;
 }
 
-.loginScreen{
+/* LOGIN */
+
+#authScreen{
   min-height:100vh;
   display:flex;
   align-items:center;
@@ -48,253 +53,251 @@ button{
   padding:20px;
 }
 
-.loginBox{
+.authBox{
   width:100%;
   max-width:430px;
   background:var(--panel);
   border:1px solid var(--line);
   border-radius:16px;
   padding:28px;
-  box-shadow:0 20px 70px rgba(0,0,0,.35);
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
 .logo{
   font-size:28px;
   font-weight:900;
-  letter-spacing:-1px;
   margin-bottom:6px;
 }
 
-.logo span{
-  color:var(--green);
-}
-
-.loginSub{
+.subtitle{
   color:var(--muted);
-  margin-bottom:25px;
+  margin-bottom:24px;
 }
 
 .authTabs{
   display:flex;
-  gap:5px;
+  gap:8px;
   margin-bottom:18px;
-  background:#09141d;
-  padding:4px;
-  border-radius:9px;
 }
 
 .authTabs button{
   flex:1;
-  border:0;
-  background:transparent;
+  border:1px solid var(--line);
+  background:var(--panel2);
   color:var(--muted);
-  padding:10px;
-  border-radius:7px;
+  padding:11px;
+  border-radius:9px;
 }
 
 .authTabs button.active{
-  background:var(--panel2);
-  color:var(--text);
-}
-
-.formGroup{
-  margin-bottom:15px;
-}
-
-.formGroup label{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:7px;
-}
-
-input,select{
-  width:100%;
-  background:#08131c;
-  color:var(--text);
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:11px 12px;
-  outline:none;
-}
-
-input:focus,select:focus{
+  color:white;
   border-color:var(--blue);
 }
 
-.primaryBtn{
+input{
   width:100%;
-  border:0;
-  background:var(--green);
-  color:#06130d;
-  font-weight:800;
+  background:#08131b;
+  color:white;
+  border:1px solid var(--line);
   padding:12px;
-  border-radius:8px;
+  border-radius:9px;
+  outline:none;
 }
 
-.app{
+input:focus{
+  border-color:var(--blue);
+}
+
+.field{
+  margin-bottom:13px;
+}
+
+.field label{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.primary{
+  width:100%;
+  background:var(--blue);
+  color:white;
+  border:0;
+  padding:12px;
+  border-radius:9px;
+  font-weight:700;
+}
+
+.message{
+  margin-top:12px;
+  color:var(--red);
+  font-size:14px;
+}
+
+/* APP */
+
+#app{
   min-height:100vh;
-  display:flex;
 }
 
-.sidebar{
-  width:225px;
-  background:#09151e;
-  border-right:1px solid var(--line);
-  padding:18px 12px;
-  position:fixed;
+.topbar{
+  height:64px;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+  position:sticky;
   top:0;
-  bottom:0;
-  left:0;
-  overflow:auto;
+  z-index:20;
 }
 
 .brand{
   font-size:21px;
   font-weight:900;
-  padding:8px 10px 20px;
 }
 
-.brand span{
+.topRight{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.cashTop{
   color:var(--green);
+  font-weight:700;
+}
+
+.userTop{
+  color:var(--muted);
+}
+
+.logoutBtn{
+  background:transparent;
+  color:var(--muted);
+  border:1px solid var(--line);
+  padding:8px 11px;
+  border-radius:8px;
+}
+
+.layout{
+  display:flex;
+  min-height:calc(100vh - 64px);
+}
+
+.sidebar{
+  width:220px;
+  flex-shrink:0;
+  background:#09151e;
+  border-right:1px solid var(--line);
+  padding:14px;
 }
 
 .navBtn{
   width:100%;
   text-align:left;
+  border:1px solid transparent;
   background:transparent;
-  border:0;
   color:var(--muted);
-  padding:11px 12px;
-  border-radius:8px;
-  margin-bottom:3px;
+  padding:12px;
+  border-radius:9px;
+  margin-bottom:5px;
 }
 
 .navBtn:hover,
 .navBtn.active{
-  background:var(--panel2);
-  color:var(--text);
-}
-
-.main{
-  margin-left:225px;
-  width:calc(100% - 225px);
-}
-
-.topbar{
-  height:65px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:15px;
-  padding:0 22px;
-  background:#09151e;
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.topCash{
-  color:var(--green);
-  font-weight:800;
-}
-
-.userBadge{
-  background:var(--panel2);
-  border:1px solid var(--line);
-  padding:8px 11px;
-  border-radius:8px;
-}
-
-.logout{
-  border:1px solid var(--line);
-  color:var(--muted);
-  background:transparent;
-  padding:8px 11px;
-  border-radius:8px;
+  background:var(--panel);
+  border-color:var(--line);
+  color:white;
 }
 
 .content{
-  padding:28px;
-  max-width:1450px;
+  flex:1;
+  padding:24px;
+  max-width:1500px;
   margin:auto;
+  width:100%;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
 }
 
 .pageTitle{
-  font-size:28px;
+  font-size:26px;
   font-weight:900;
-  margin-bottom:5px;
+  margin-bottom:20px;
 }
 
-.pageSub{
-  color:var(--muted);
-  margin-bottom:24px;
-}
-
-.grid4{
+.grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:14px;
-  margin-bottom:18px;
-}
-
-.grid2{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-}
-
-.card,.panel{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:12px;
 }
 
 .card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
   padding:18px;
 }
 
-.cardLabel{
+.cardTitle{
   color:var(--muted);
   font-size:13px;
-  margin-bottom:9px;
+  margin-bottom:8px;
 }
 
-.cardValue{
-  font-size:24px;
+.bigNumber{
+  font-size:23px;
   font-weight:900;
 }
 
-.green{color:var(--green)}
-.red{color:var(--red)}
-.blue{color:var(--blue)}
-.gold{color:var(--gold)}
-
-.panel{
-  overflow:hidden;
-  margin-bottom:18px;
+.green{
+  color:var(--green);
 }
 
-.panelHead{
-  padding:16px 18px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.red{
+  color:var(--red);
 }
 
-.panelTitle{
-  font-weight:800;
+.blue{
+  color:var(--blue);
 }
 
-.badge{
-  display:inline-block;
-  border:1px solid var(--line);
+.muted{
   color:var(--muted);
-  border-radius:999px;
-  padding:4px 8px;
-  font-size:11px;
+}
+
+.section{
+  margin-top:20px;
+}
+
+.sectionHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.sectionHeader h2{
+  font-size:17px;
+  margin:0;
+}
+
+/* TABLES */
+
+.tableWrap{
+  overflow-x:auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
 }
 
 table{
@@ -302,10 +305,12 @@ table{
   border-collapse:collapse;
 }
 
-th,td{
-  padding:12px 16px;
-  border-bottom:1px solid #172934;
+th,
+td{
+  padding:13px;
+  border-bottom:1px solid var(--line);
   text-align:left;
+  white-space:nowrap;
 }
 
 th{
@@ -318,167 +323,251 @@ td{
   font-size:14px;
 }
 
-.stockName{
-  font-weight:800;
+tr:last-child td{
+  border-bottom:0;
 }
 
-.small{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.action{
+.stockBtn{
+  background:none;
   border:0;
-  background:var(--green);
-  color:#06130d;
+  color:white;
+  padding:0;
   font-weight:800;
-  padding:9px 13px;
-  border-radius:7px;
 }
 
-.action.blueBtn{
-  background:var(--blue);
-  color:#071018;
+.stockBtn:hover{
+  color:var(--blue);
 }
 
-.action.danger{
-  background:var(--red);
-}
-
-.action.dark{
-  background:var(--panel2);
-  color:var(--text);
-  border:1px solid var(--line);
-}
-
-.formRow{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  padding:18px;
-}
-
-.formRow.three{
-  grid-template-columns:repeat(3,1fr);
-}
-
-.formRow.full{
-  grid-template-columns:1fr;
-}
-
-.formActions{
-  padding:0 18px 18px;
-}
+/* MARKET */
 
 .marketLayout{
   display:grid;
-  grid-template-columns:1fr 340px;
-  gap:18px;
+  grid-template-columns:1fr 330px;
+  gap:16px;
 }
 
-.chartWrap{
-  padding:15px;
+.chartCard{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:16px;
 }
 
-canvas{
+#chart{
   width:100%;
-  height:360px;
+  height:400px;
   display:block;
-  background:#09151e;
-  border-radius:8px;
 }
 
 .tradeBox{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
   padding:18px;
 }
 
-.tradePrice{
-  font-size:30px;
-  font-weight:900;
-  margin:12px 0;
+.tradeBox h2{
+  margin-top:0;
 }
 
-.tradeBtns{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+.selectedPrice{
+  font-size:28px;
+  font-weight:900;
+}
+
+.tradeRow{
+  display:flex;
   gap:8px;
   margin-top:12px;
 }
 
-.tradeBtns button{
+.tradeRow button{
+  flex:1;
   padding:12px;
+  border-radius:9px;
+  border:0;
+  font-weight:800;
+}
+
+.buyBtn{
+  background:var(--green);
+  color:#06130d;
+}
+
+.sellBtn{
+  background:var(--red);
+  color:#19070a;
 }
 
 .statGrid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:10px;
-  padding:15px;
+  margin-top:12px;
 }
 
-.stat{
-  background:#09151e;
+.miniStat{
+  background:var(--panel2);
   border:1px solid var(--line);
-  border-radius:8px;
-  padding:12px;
+  border-radius:9px;
+  padding:10px;
 }
 
-.statLabel{
+.miniStat small{
+  display:block;
   color:var(--muted);
-  font-size:11px;
+  margin-bottom:4px;
 }
 
-.statValue{
-  font-weight:800;
-  margin-top:5px;
-}
+/* CHAT */
 
 .chatBox{
-  height:500px;
+  height:550px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
   display:flex;
   flex-direction:column;
 }
 
 .chatMessages{
   flex:1;
-  overflow:auto;
+  overflow-y:auto;
   padding:16px;
 }
 
 .chatMessage{
-  padding:11px 0;
-  border-bottom:1px solid #172934;
+  margin-bottom:13px;
 }
 
-.chatMeta{
+.chatName{
+  font-weight:800;
+  color:var(--blue);
+}
+
+.chatTime{
   color:var(--muted);
-  font-size:12px;
-  margin-bottom:5px;
-}
-
-.chatMeta strong{
-  color:var(--text);
+  font-size:11px;
+  margin-left:7px;
 }
 
 .chatText{
-  white-space:pre-wrap;
+  margin-top:3px;
   word-break:break-word;
 }
 
-.chatComposer{
+.chatInput{
   display:flex;
   gap:8px;
   padding:12px;
   border-top:1px solid var(--line);
 }
 
-.chatComposer input{
+.chatInput input{
   flex:1;
 }
 
-.chatComposer button{
-  width:auto;
+.chatInput button{
+  width:90px;
+  border:0;
+  background:var(--blue);
+  color:white;
+  border-radius:8px;
 }
+
+/* CREATE */
+
+.formCard{
+  max-width:650px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:20px;
+}
+
+.infoBox{
+  background:var(--panel2);
+  border:1px solid var(--line);
+  padding:12px;
+  border-radius:9px;
+  color:var(--muted);
+  margin-bottom:16px;
+}
+
+/* OPERATOR */
+
+.operatorCard{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:20px;
+  margin-bottom:16px;
+}
+
+.operatorCard h2{
+  margin-top:0;
+}
+
+.operatorControls{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.operatorControls input{
+  flex:1;
+}
+
+.smallBtn{
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:white;
+  padding:9px 12px;
+  border-radius:8px;
+}
+
+.dangerBtn{
+  border:1px solid #6e2930;
+  background:#35171b;
+  color:#ff8d95;
+  padding:9px 12px;
+  border-radius:8px;
+}
+
+.successBtn{
+  border:1px solid #1c6345;
+  background:#102d22;
+  color:var(--green);
+  padding:9px 12px;
+  border-radius:8px;
+}
+
+.warningBtn{
+  border:1px solid #66521e;
+  background:#30270e;
+  color:var(--yellow);
+  padding:9px 12px;
+  border-radius:8px;
+}
+
+.operatorTable td{
+  vertical-align:middle;
+}
+
+.operatorStockActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.lockedNotice{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:8px;
+}
+
+/* MODAL */
 
 .modal{
   position:fixed;
@@ -487,8 +576,8 @@ canvas{
   display:flex;
   align-items:center;
   justify-content:center;
-  z-index:100;
   padding:20px;
+  z-index:100;
 }
 
 .modalBox{
@@ -496,107 +585,100 @@ canvas{
   max-width:430px;
   background:var(--panel);
   border:1px solid var(--line);
-  border-radius:13px;
-  padding:22px;
+  border-radius:14px;
+  padding:20px;
 }
 
-.modalTitle{
-  font-size:20px;
-  font-weight:900;
-  margin-bottom:5px;
+.modalBox h2{
+  margin-top:0;
 }
 
-.modalSub{
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:18px;
-}
-
-.modalActions{
+.modalButtons{
   display:flex;
   gap:8px;
-  margin-top:18px;
+  margin-top:14px;
 }
 
-.modalActions button{
+.modalButtons button{
   flex:1;
-}
-
-.notice{
-  padding:12px 14px;
-  border:1px solid var(--line);
-  background:#09151e;
+  padding:11px;
   border-radius:8px;
-  color:var(--muted);
-  font-size:13px;
+  border:0;
 }
 
-@media(max-width:1000px){
-  .grid4{
+.cancelBtn{
+  background:var(--panel2);
+  color:white;
+  border:1px solid var(--line)!important;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+  .sidebar{
+    width:180px;
+  }
+
+  .grid{
     grid-template-columns:repeat(2,1fr);
   }
 
   .marketLayout{
     grid-template-columns:1fr;
   }
-
-  .statGrid{
-    grid-template-columns:repeat(2,1fr);
-  }
 }
 
-@media(max-width:700px){
+@media(max-width:650px){
+  .topbar{
+    padding:0 12px;
+  }
+
+  .brand{
+    font-size:17px;
+  }
+
+  .userTop{
+    display:none;
+  }
+
+  .layout{
+    display:block;
+  }
+
   .sidebar{
     width:100%;
-    height:auto;
-    bottom:auto;
-    position:relative;
+    display:flex;
+    overflow-x:auto;
     border-right:0;
     border-bottom:1px solid var(--line);
-  }
-
-  .app{
-    display:block;
-  }
-
-  .main{
-    margin-left:0;
-    width:100%;
-  }
-
-  .topbar{
-    position:relative;
-    flex-wrap:wrap;
-    height:auto;
-    padding:12px;
-  }
-
-  .content{
-    padding:18px 12px;
-  }
-
-  .grid4,
-  .grid2,
-  .formRow,
-  .formRow.three{
-    grid-template-columns:1fr;
-  }
-
-  .sidebar{
-    display:block;
+    padding:8px;
   }
 
   .navBtn{
     width:auto;
-    display:inline-block;
+    white-space:nowrap;
+    margin:0 4px 0 0;
   }
 
-  .brand{
-    padding-bottom:10px;
+  .content{
+    padding:15px;
   }
 
-  th,td{
-    padding:10px 8px;
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .statGrid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  #chart{
+    height:300px;
+  }
+
+  .operatorControls{
+    flex-direction:column;
+    align-items:stretch;
   }
 }
 </style>
@@ -604,93 +686,101 @@ canvas{
 
 <body>
 
-<!-- LOGIN -->
-<div id="loginScreen" class="loginScreen">
-  <div class="loginBox">
-    <div class="logo">MARKET <span>ARCADE</span></div>
-    <div class="loginSub">A fictional stock-market simulator.</div>
+<!-- AUTH -->
+
+<div id="authScreen">
+  <div class="authBox">
+    <div class="logo">📈 Market Arcade</div>
+    <div class="subtitle">A fictional paper-trading market game.</div>
 
     <div class="authTabs">
       <button id="loginTab" class="active" onclick="showAuth('login')">Login</button>
       <button id="signupTab" onclick="showAuth('signup')">Sign Up</button>
     </div>
 
-    <div id="authForm">
-      <div class="formGroup">
-        <label>Username</label>
-        <input id="authUsername" maxlength="24" autocomplete="username">
-      </div>
-
-      <div class="formGroup">
-        <label>Password</label>
-        <input id="authPassword" type="password" autocomplete="current-password">
-      </div>
-
-      <button class="primaryBtn" onclick="submitAuth()">Login</button>
+    <div class="field">
+      <label>Username</label>
+      <input id="authUsername" autocomplete="username">
     </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input id="authPassword" type="password" autocomplete="current-password">
+    </div>
+
+    <button class="primary" id="authButton" onclick="submitAuth()">Login</button>
+
+    <div id="authMessage" class="message"></div>
   </div>
 </div>
 
 <!-- APP -->
-<div id="app" class="app hidden">
 
-  <aside class="sidebar">
-    <div class="brand">MARKET <span>ARCADE</span></div>
+<div id="app" class="hidden">
 
-    <button class="navBtn active" onclick="page('dashboard',this)">📊 Dashboard</button>
-    <button class="navBtn" onclick="page('market',this)">📈 Market</button>
-    <button class="navBtn" onclick="page('portfolio',this)">💼 Portfolio</button>
-    <button class="navBtn" onclick="page('friends',this)">👥 Friends</button>
-    <button class="navBtn" onclick="page('chat',this)">💬 Chat</button>
-    <button class="navBtn" onclick="page('leaderboard',this)">🏆 Leaderboard</button>
-    <button class="navBtn" onclick="page('create',this)">➕ Create Stock</button>
-    <button class="navBtn" onclick="page('operator',this)">⚙️ Operator</button>
-  </aside>
+  <div class="topbar">
+    <div class="brand">📈 MARKET ARCADE</div>
 
-  <main class="main">
+    <div class="topRight">
+      <div class="cashTop" id="topCash">$0</div>
+      <div class="userTop" id="topUsername"></div>
+      <button class="logoutBtn" onclick="logout()">Logout</button>
+    </div>
+  </div>
 
-    <header class="topbar">
-      <div class="topCash" id="topCash">$0</div>
-      <div class="userBadge" id="topUsername">Player</div>
-      <button class="logout" onclick="logout()">Logout</button>
-    </header>
+  <div class="layout">
 
-    <div class="content">
+    <aside class="sidebar">
+
+      <button class="navBtn active" onclick="page('dashboard',this)">📊 Dashboard</button>
+      <button class="navBtn" onclick="page('market',this)">📈 Market</button>
+      <button class="navBtn" onclick="page('portfolio',this)">💼 Portfolio</button>
+      <button class="navBtn" onclick="page('friends',this)">👥 Friends</button>
+      <button class="navBtn" onclick="page('chat',this)">💬 Chat</button>
+      <button class="navBtn" onclick="page('leaderboard',this)">🏆 Leaderboard</button>
+      <button class="navBtn" onclick="page('create',this)">➕ Create Stock</button>
+      <button class="navBtn" onclick="page('operator',this)">⚙️ Operator</button>
+
+    </aside>
+
+    <main class="content">
 
       <!-- DASHBOARD -->
-      <section id="dashboardPage">
+
+      <section id="dashboard" class="page active">
+
         <div class="pageTitle">Dashboard</div>
-        <div class="pageSub">Your Market Arcade overview.</div>
 
-        <div class="grid4">
+        <div class="grid">
+
           <div class="card">
-            <div class="cardLabel">Cash</div>
-            <div class="cardValue green" id="dashCash">$0</div>
+            <div class="cardTitle">Cash</div>
+            <div class="bigNumber green" id="dashCash">$0</div>
           </div>
 
           <div class="card">
-            <div class="cardLabel">Portfolio</div>
-            <div class="cardValue" id="dashPortfolio">$0</div>
+            <div class="cardTitle">Portfolio</div>
+            <div class="bigNumber" id="dashPortfolio">$0</div>
           </div>
 
           <div class="card">
-            <div class="cardLabel">Total Value</div>
-            <div class="cardValue" id="dashTotal">$0</div>
+            <div class="cardTitle">Total Value</div>
+            <div class="bigNumber blue" id="dashTotal">$0</div>
           </div>
 
           <div class="card">
-            <div class="cardLabel">Profit / Loss</div>
-            <div class="cardValue" id="dashProfit">$0</div>
+            <div class="cardTitle">Profit / Loss</div>
+            <div class="bigNumber" id="dashPL">$0</div>
           </div>
+
         </div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Market Overview</div>
-            <span class="badge">Live Simulation</span>
+        <div class="section">
+          <div class="sectionHeader">
+            <h2>Market Overview</h2>
           </div>
 
-          <div style="overflow:auto">
+          <div class="tableWrap">
             <table>
               <thead>
                 <tr>
@@ -705,57 +795,33 @@ canvas{
             </table>
           </div>
         </div>
+
       </section>
 
       <!-- MARKET -->
-      <section id="marketPage" class="hidden">
+
+      <section id="market" class="page">
+
         <div class="pageTitle">Market</div>
-        <div class="pageSub">Watch fictional stocks move in real time.</div>
 
         <div class="marketLayout">
+
           <div>
-            <div class="panel">
-              <div class="panelHead">
+
+            <div class="chartCard">
+              <div class="sectionHeader">
                 <div>
-                  <div class="panelTitle" id="marketStockName">Cool Holdings</div>
-                  <div class="small" id="marketStockSymbol">COOL</div>
-                </div>
-                <span class="badge" id="marketStatus">Trading</span>
-              </div>
-
-              <div class="chartWrap">
-                <canvas id="chart"></canvas>
-              </div>
-
-              <div class="statGrid">
-                <div class="stat">
-                  <div class="statLabel">PRICE</div>
-                  <div class="statValue" id="marketPrice">$0</div>
-                </div>
-
-                <div class="stat">
-                  <div class="statLabel">SHARES</div>
-                  <div class="statValue" id="marketShares">0</div>
-                </div>
-
-                <div class="stat">
-                  <div class="statLabel">MARKET CAP</div>
-                  <div class="statValue" id="marketCap">$0</div>
-                </div>
-
-                <div class="stat">
-                  <div class="statLabel">CHANGE</div>
-                  <div class="statValue" id="marketChange">0%</div>
+                  <h2 id="chartTitle">COOL — Cool Holdings</h2>
+                  <div class="muted" id="chartSymbol"></div>
                 </div>
               </div>
+
+              <canvas id="chart"></canvas>
             </div>
 
-            <div class="panel">
-              <div class="panelHead">
-                <div class="panelTitle">All Stocks</div>
-              </div>
+            <div class="section">
 
-              <div style="overflow:auto">
+              <div class="tableWrap">
                 <table>
                   <thead>
                     <tr>
@@ -764,336 +830,432 @@ canvas{
                       <th>Change</th>
                       <th>Total Shares</th>
                       <th>Market Cap</th>
-                      <th></th>
+                      <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody id="allStocks"></tbody>
+
+                  <tbody id="marketStocks"></tbody>
                 </table>
               </div>
+
             </div>
+
           </div>
 
-          <div class="panel">
-            <div class="panelHead">
-              <div class="panelTitle">Trade</div>
+          <div class="tradeBox">
+
+            <h2>Trade</h2>
+
+            <div class="muted" id="tradeStockName">Cool Holdings</div>
+            <div class="selectedPrice" id="tradePrice">$10.00</div>
+
+            <div class="field" style="margin-top:18px">
+              <label>Shares</label>
+              <input id="tradeShares" type="number" min="1" step="1" value="1">
             </div>
 
-            <div class="tradeBox">
-              <div class="small">Selected stock</div>
-              <div class="tradePrice" id="tradePrice">$0</div>
-
-              <div class="formGroup">
-                <label>Shares</label>
-                <input id="tradeShares" type="number" min="1" step="1" value="1">
-              </div>
-
-              <div class="small" id="tradeHint">Choose a stock to trade.</div>
-
-              <div class="tradeBtns">
-                <button class="action" onclick="openTrade('buy')">Buy</button>
-                <button class="action danger" onclick="openTrade('sell')">Sell</button>
-              </div>
+            <div class="tradeRow">
+              <button class="buyBtn" onclick="trade('buy')">BUY</button>
+              <button class="sellBtn" onclick="trade('sell')">SELL</button>
             </div>
+
+            <div class="statGrid">
+
+              <div class="miniStat">
+                <small>Owned</small>
+                <span id="tradeOwned">0</span>
+              </div>
+
+              <div class="miniStat">
+                <small>Market Cap</small>
+                <span id="tradeMarketCap">$0</span>
+              </div>
+
+              <div class="miniStat">
+                <small>Total Shares</small>
+                <span id="tradeTotalShares">0</span>
+              </div>
+
+            </div>
+
+            <div id="tradeMessage" class="message"></div>
+
           </div>
+
         </div>
+
       </section>
 
       <!-- PORTFOLIO -->
-      <section id="portfolioPage" class="hidden">
-        <div class="pageTitle">Portfolio</div>
-        <div class="pageSub">Your current holdings.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Holdings</div>
+      <section id="portfolio" class="page">
+
+        <div class="pageTitle">Portfolio</div>
+
+        <div class="grid">
+
+          <div class="card">
+            <div class="cardTitle">Cash</div>
+            <div class="bigNumber green" id="portfolioCash">$0</div>
           </div>
 
-          <div style="overflow:auto">
+          <div class="card">
+            <div class="cardTitle">Investments</div>
+            <div class="bigNumber" id="portfolioValue">$0</div>
+          </div>
+
+          <div class="card">
+            <div class="cardTitle">Total</div>
+            <div class="bigNumber blue" id="portfolioTotal">$0</div>
+          </div>
+
+          <div class="card">
+            <div class="cardTitle">Profit / Loss</div>
+            <div class="bigNumber" id="portfolioPL">$0</div>
+          </div>
+
+        </div>
+
+        <div class="section">
+
+          <div class="tableWrap">
             <table>
               <thead>
                 <tr>
                   <th>Stock</th>
                   <th>Shares</th>
-                  <th>Current Price</th>
+                  <th>Price</th>
                   <th>Value</th>
-                  <th>Avg. Cost</th>
+                  <th>Average Cost</th>
                   <th>P/L</th>
                 </tr>
               </thead>
-              <tbody id="portfolioTable"></tbody>
+
+              <tbody id="portfolioStocks"></tbody>
+
             </table>
           </div>
+
         </div>
+
       </section>
 
       <!-- FRIENDS -->
-      <section id="friendsPage" class="hidden">
+
+      <section id="friends" class="page">
+
         <div class="pageTitle">Friends</div>
-        <div class="pageSub">Players in your local Market Arcade database.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Players</div>
+        <div class="card">
+          <div class="muted">
+            Friends and social features are currently local to this browser.
+            Online multiplayer can be added later with a real backend.
           </div>
+        </div>
 
-          <div style="overflow:auto">
+        <div class="section">
+          <div class="tableWrap">
             <table>
               <thead>
                 <tr>
                   <th>Username</th>
-                  <th>Portfolio Value</th>
                   <th>Total Value</th>
+                  <th>Profit / Loss</th>
                 </tr>
               </thead>
               <tbody id="friendsTable"></tbody>
             </table>
           </div>
         </div>
+
       </section>
 
       <!-- CHAT -->
-      <section id="chatPage" class="hidden">
+
+      <section id="chat" class="page">
+
         <div class="pageTitle">Chat</div>
-        <div class="pageSub">Talk with players in the local beta chat.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Market Chat</div>
-            <span class="badge">Local Beta</span>
-          </div>
-
-          <div class="chatBox">
-            <div id="chatMessages" class="chatMessages"></div>
-
-            <div class="chatComposer">
-              <input
-                id="chatInput"
-                maxlength="300"
-                placeholder="Type a message..."
-              >
-              <button class="action" onclick="sendChatMessage()">Send</button>
-            </div>
+        <div class="card" style="margin-bottom:12px">
+          <div class="muted">
+            💬 Local chat — messages are stored only in this browser and
+            will not appear on other devices until Market Arcade gets an
+            online backend.
           </div>
         </div>
+
+        <div class="chatBox">
+
+          <div class="chatMessages" id="chatMessages"></div>
+
+          <div class="chatInput">
+            <input
+              id="chatText"
+              maxlength="300"
+              placeholder="Type a message..."
+              onkeydown="if(event.key==='Enter') sendChatMessage()"
+            >
+            <button onclick="sendChatMessage()">Send</button>
+          </div>
+
+        </div>
+
       </section>
 
       <!-- LEADERBOARD -->
-      <section id="leaderboardPage" class="hidden">
+
+      <section id="leaderboard" class="page">
+
         <div class="pageTitle">Leaderboard</div>
-        <div class="pageSub">See who's leading the market.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Top Players</div>
-          </div>
+        <div class="tableWrap">
 
-          <div style="overflow:auto">
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Player</th>
-                  <th>Portfolio</th>
-                  <th>Cash</th>
-                  <th>Total Value</th>
-                </tr>
-              </thead>
-              <tbody id="leaderboardTable"></tbody>
-            </table>
-          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Cash</th>
+                <th>Portfolio</th>
+                <th>Total Value</th>
+                <th>Profit / Loss</th>
+              </tr>
+            </thead>
+
+            <tbody id="leaderboardTable"></tbody>
+
+          </table>
+
         </div>
+
       </section>
 
       <!-- CREATE STOCK -->
-      <section id="createPage" class="hidden">
+
+      <section id="create" class="page">
+
         <div class="pageTitle">Create Stock</div>
-        <div class="pageSub">Create your own fictional company for the market.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">New Stock</div>
-            <span class="badge" id="creationFeeBadge">$100,000,000 Fee</span>
+        <div class="formCard">
+
+          <div class="infoBox">
+            Creating a stock costs
+            <strong id="creationFeeDisplay">$100,000,000</strong>.
+            You can create one stock per real-world day.
           </div>
 
-          <div class="formRow three">
-            <div class="formGroup">
-              <label>Company Name</label>
-              <input id="createName" maxlength="40" placeholder="Example Holdings">
-            </div>
-
-            <div class="formGroup">
-              <label>Stock Symbol</label>
-              <input id="createSymbol" maxlength="6" placeholder="EXMPL">
-            </div>
-
-            <div class="formGroup">
-              <label>Total Shares</label>
-              <input id="createShares" type="number" min="1" step="1" placeholder="1000">
-            </div>
+          <div class="field">
+            <label>Company / Stock Name</label>
+            <input id="createName" maxlength="40" placeholder="Example: Cool Holdings">
           </div>
 
-          <div class="formRow">
-            <div class="formGroup">
-              <label>Starting Price</label>
-              <input id="createPrice" type="number" min="0.01" step="0.01" value="10">
-            </div>
-
-            <div class="formGroup">
-              <label>Description</label>
-              <input id="createDescription" maxlength="120" placeholder="A fictional company...">
-            </div>
+          <div class="field">
+            <label>Symbol</label>
+            <input id="createSymbol" maxlength="6" placeholder="Example: COOL">
           </div>
 
-          <div class="formActions">
-            <button class="action" onclick="createStock()">Create Stock</button>
+          <div class="field">
+            <label>Total Shares</label>
+            <input id="createShares" type="number" min="1" step="1" value="1000">
           </div>
 
-          <div style="padding:0 18px 18px">
-            <div class="notice">
-              Stock creators choose the total number of shares. The number of shares is fixed after creation.
-            </div>
-          </div>
+          <button class="primary" onclick="createStock()">Create Stock</button>
+
+          <div id="createMessage" class="message"></div>
+
         </div>
+
       </section>
 
       <!-- OPERATOR -->
-      <section id="operatorPage" class="hidden">
-        <div class="pageTitle">Operator</div>
-        <div class="pageSub">Local beta administration tools.</div>
 
-        <div class="panel">
-          <div class="panelHead">
-            <div class="panelTitle">Operator Login</div>
+      <section id="operator" class="page">
+
+        <div class="pageTitle">Operator Panel</div>
+
+        <div id="operatorLoginBox" class="operatorCard">
+
+          <h2>Operator Access</h2>
+
+          <div class="field">
+            <label>Operator Password</label>
+            <input id="operatorPassword" type="password">
           </div>
 
-          <div class="formRow">
-            <div class="formGroup">
-              <label>Operator Password</label>
-              <input id="operatorPassword" type="password">
+          <button class="primary" onclick="operatorLogin()">Unlock Operator Panel</button>
+
+          <div id="operatorMessage" class="message"></div>
+
+        </div>
+
+        <div id="operatorTools" class="hidden">
+
+          <div class="operatorCard">
+
+            <h2>Stock Management</h2>
+
+            <div class="lockedNotice">
+              You can rename or permanently delete stocks here.
+              Stock prices, share supply, price history, crashes, and
+              market movement cannot be manually changed.
             </div>
 
-            <div style="display:flex;align-items:end">
-              <button class="action" onclick="operatorLogin()">Unlock</button>
+            <div class="section">
+
+              <div class="tableWrap">
+
+                <table class="operatorTable">
+
+                  <thead>
+                    <tr>
+                      <th>Stock</th>
+                      <th>Price</th>
+                      <th>Shares</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="operatorStocks"></tbody>
+
+                </table>
+
+              </div>
+
             </div>
+
           </div>
 
-          <div id="operatorTools" class="hidden">
+          <div class="operatorCard">
 
-            <div class="panelHead">
-              <div class="panelTitle">Settings</div>
+            <h2>Game Settings</h2>
+
+            <div class="field">
+              <label>Stock Creation Fee</label>
+              <input id="operatorCreationFee" type="number" min="0">
             </div>
 
-            <div class="formRow">
-              <div class="formGroup">
-                <label>Stock Creation Fee</label>
-                <input id="operatorFee" type="number" min="0">
-              </div>
+            <button class="successBtn" onclick="saveCreationFee()">
+              Save Creation Fee
+            </button>
 
-              <div style="display:flex;align-items:end">
-                <button class="action" onclick="saveOperatorSettings()">Save Settings</button>
-              </div>
-            </div>
+            <button class="warningBtn" onclick="resetDemo()">
+              Reset Demo Data
+            </button>
 
-            <div class="panelHead">
-              <div class="panelTitle">Players</div>
-            </div>
+          </div>
 
-            <div style="overflow:auto">
+          <div class="operatorCard">
+
+            <h2>User Management</h2>
+
+            <div class="tableWrap">
+
               <table>
                 <thead>
                   <tr>
                     <th>Username</th>
                     <th>Cash</th>
-                    <th>Banned</th>
-                    <th></th>
+                    <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
+
                 <tbody id="operatorUsers"></tbody>
               </table>
-            </div>
 
-            <div class="panelHead">
-              <div class="panelTitle">Stocks</div>
-            </div>
-
-            <div style="overflow:auto">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Stock</th>
-                    <th>Price</th>
-                    <th>Shares</th>
-                    <th>Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="operatorStocks"></tbody>
-              </table>
-            </div>
-
-            <div style="padding:18px">
-              <button class="action danger" onclick="resetDemo()">Reset Demo Database</button>
             </div>
 
           </div>
+
         </div>
+
       </section>
 
-    </div>
-  </main>
-</div>
+    </main>
 
-<!-- TRADE MODAL -->
-<div id="tradeModal" class="modal hidden">
-  <div class="modalBox">
-    <div class="modalTitle" id="tradeModalTitle">Buy Stock</div>
-    <div class="modalSub" id="tradeModalSub"></div>
-
-    <div class="formGroup">
-      <label>Shares</label>
-      <input id="modalShares" type="number" min="1" step="1" value="1">
-    </div>
-
-    <div class="notice">
-      Estimated total: <strong id="modalTotal">$0</strong>
-    </div>
-
-    <div class="modalActions">
-      <button class="action dark" onclick="closeTrade()">Cancel</button>
-      <button class="action" id="modalConfirm" onclick="confirmTrade()">Confirm</button>
-    </div>
   </div>
 </div>
 
+<!-- TRADE MODAL -->
+
+<div id="tradeModal" class="modal hidden">
+
+  <div class="modalBox">
+
+    <h2 id="modalTitle">Trade</h2>
+
+    <div id="modalText" class="muted"></div>
+
+    <div class="modalButtons">
+      <button class="cancelBtn" onclick="closeModal()">Cancel</button>
+      <button class="primary" onclick="confirmTrade()">Confirm</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- RENAME MODAL -->
+
+<div id="renameModal" class="modal hidden">
+
+  <div class="modalBox">
+
+    <h2>Rename Stock</h2>
+
+    <div class="muted" id="renameStockLabel"></div>
+
+    <div class="field" style="margin-top:15px">
+      <label>New Stock Name</label>
+      <input id="renameInput" maxlength="40">
+    </div>
+
+    <div class="modalButtons">
+      <button class="cancelBtn" onclick="closeRenameModal()">Cancel</button>
+      <button class="primary" onclick="confirmRename()">Rename</button>
+    </div>
+
+    <div id="renameMessage" class="message"></div>
+
+  </div>
+
+</div>
+
 <script>
+
 const DATA_KEY = "MARKET_ARCADE_POLISHED_DATA";
 const SESSION_KEY = "MARKET_ARCADE_POLISHED_SESSION";
+
 const OPERATOR_PASSWORD = "MA-ADMIN-2026";
 
 let db = null;
 let selectedStockId = null;
-let tradeMode = "buy";
+let pendingTrade = null;
+let renameStockId = null;
 let authMode = "login";
 let operatorUnlocked = false;
 
-function money(value){
-  return "$" + Number(value || 0).toLocaleString(undefined,{
-    minimumFractionDigits:2,
+/* =========================
+   HELPERS
+========================= */
+
+function money(n){
+  n = Number(n) || 0;
+
+  return n.toLocaleString("en-US",{
+    style:"currency",
+    currency:"USD",
     maximumFractionDigits:2
   });
 }
 
-function integer(value){
-  return Number(value || 0).toLocaleString();
-}
-
-function pct(value){
-  const n = Number(value || 0);
-  return (n >= 0 ? "+" : "") + n.toFixed(2) + "%";
+function number(n){
+  return Number(n || 0).toLocaleString("en-US");
 }
 
 function escapeHtml(str){
-  return String(str ?? "")
+  return String(str)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
@@ -1101,61 +1263,96 @@ function escapeHtml(str){
     .replaceAll("'","&#039;");
 }
 
-function makeCandles(startPrice){
-  const candles=[];
-  let price=Number(startPrice)||10;
+function uid(){
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function todayKey(){
+  const d = new Date();
+
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function priceChange(stock){
+  if(!stock.previousPrice) return 0;
+
+  return ((stock.price-stock.previousPrice)/stock.previousPrice)*100;
+}
+
+function stockMarketCap(stock){
+  return Number(stock.price || 0) * Number(stock.totalShares || 0);
+}
+
+/* =========================
+   STOCK CREATION
+========================= */
+
+function makeCandles(price){
+  const candles = [];
+
+  let current = price;
 
   for(let i=0;i<80;i++){
-    const open=price;
-    const move=(Math.random()-0.48)*0.08;
-    const close=Math.max(0.01,open*(1+move));
-    const high=Math.max(open,close)*(1+Math.random()*0.035);
-    const low=Math.max(0.01,Math.min(open,close)*(1-Math.random()*0.035));
+
+    const open = current;
+
+    const move = (Math.random()-.45) * .06;
+
+    const close = Math.max(.01,open*(1+move));
+
+    const high = Math.max(open,close) *
+      (1 + Math.random()*.025);
+
+    const low = Math.min(open,close) *
+      (1 - Math.random()*.025);
 
     candles.push({
+      time:Date.now()-(80-i)*60000,
       open,
-      close,
       high,
-      low
+      low,
+      close
     });
 
-    price=close;
+    current = close;
   }
 
   return candles;
 }
 
-function makeStock({
-  id,
+function makeStock(
   symbol,
   name,
   price=10,
   shares=1000,
-  description="",
   ownerId=null
-}){
+){
+
   return {
-    id:id || ("stock_"+Date.now()+"_"+Math.random().toString(36).slice(2)),
-    symbol:String(symbol).toUpperCase(),
+    id:uid(),
+    symbol:symbol.toUpperCase(),
     name,
-    price:Number(price)||10,
-
-    /* NEW:
-       Every stock has a fixed total share supply.
-    */
-    totalShares:Math.max(1,Math.floor(Number(shares)||1000)),
-
-    description,
+    price,
+    previousPrice:price,
+    totalShares:Number(shares),
     ownerId,
-    createdAt:Date.now(),
-    previousPrice:Number(price)||10,
-    candles:makeCandles(Number(price)||10),
     suspended:false,
-    lastCrashAt:null
+    createdAt:Date.now(),
+    lastCrashAt:0,
+    candles:makeCandles(price)
   };
 }
 
+/* =========================
+   DEFAULT DATABASE
+========================= */
+
 function defaultDatabase(){
+
   return {
     settings:{
       creationFee:100000000
@@ -1164,95 +1361,124 @@ function defaultDatabase(){
     users:[],
 
     stocks:[
-      makeStock({
-        id:"cool",
-        symbol:"COOL",
-        name:"Cool Holdings",
-        price:10,
-        shares:1000,
-        description:"The original Market Arcade stock."
-      })
+      makeStock(
+        "COOL",
+        "Cool Holdings",
+        10,
+        1000,
+        null
+      )
     ],
 
     chat:[]
   };
 }
 
+/* =========================
+   DATABASE
+========================= */
+
 function loadDatabase(){
-  try{
-    const raw=localStorage.getItem(DATA_KEY);
 
-    if(!raw){
-      db=defaultDatabase();
-      saveDatabase();
-      return;
-    }
+  const raw = localStorage.getItem(DATA_KEY);
 
-    db=JSON.parse(raw);
+  if(!raw){
 
-    if(!db || typeof db!=="object"){
-      db=defaultDatabase();
-    }
-
-    if(!db.settings) db.settings={creationFee:100000000};
-    if(typeof db.settings.creationFee!=="number"){
-      db.settings.creationFee=100000000;
-    }
-
-    if(!Array.isArray(db.users)) db.users=[];
-    if(!Array.isArray(db.stocks)) db.stocks=[];
-    if(!Array.isArray(db.chat)) db.chat=[];
-
-    db.users=db.users.map(normalizeUser);
-    db.stocks=db.stocks.map(normalizeStock);
-
+    db = defaultDatabase();
     saveDatabase();
 
-  }catch(e){
-    db=defaultDatabase();
-    saveDatabase();
+    return;
   }
+
+  try{
+    db = JSON.parse(raw);
+  }catch{
+
+    db = defaultDatabase();
+  }
+
+  if(!db.settings){
+    db.settings={creationFee:100000000};
+  }
+
+  if(!db.users){
+    db.users=[];
+  }
+
+  if(!db.stocks){
+    db.stocks=[];
+  }
+
+  if(!db.chat){
+    db.chat=[];
+  }
+
+  db.users.forEach(normalizeUser);
+  db.stocks.forEach(normalizeStock);
+
+  saveDatabase();
 }
 
 function normalizeUser(user){
-  if(!user.portfolio || typeof user.portfolio!=="object"){
-    user.portfolio={};
+
+  if(!user.id) user.id=uid();
+
+  if(!user.cash && user.cash!==0){
+    user.cash=100000000;
   }
 
-  if(typeof user.cash!=="number"){
-    user.cash=100000;
+  if(!user.holdings){
+    user.holdings={};
   }
 
-  if(typeof user.createdAt!=="number"){
-    user.createdAt=Date.now();
+  if(!user.trades){
+    user.trades=[];
   }
 
-  user.banned=!!user.banned;
+  if(!user.createdStocks){
+    user.createdStocks=[];
+  }
 
-  return user;
+  if(!user.banned){
+    user.banned=false;
+  }
 }
 
 function normalizeStock(stock){
-  stock.price=Math.max(0.01,Number(stock.price)||10);
 
-  /*
-    NEW:
-    Older stocks that don't have totalShares get 1000.
-  */
-  stock.totalShares=Math.max(
-    1,
-    Math.floor(Number(stock.totalShares)||1000)
-  );
+  if(!stock.id) stock.id=uid();
 
-  stock.previousPrice=Number(stock.previousPrice)||stock.price;
+  if(!stock.symbol){
+    stock.symbol="STK";
+  }
 
-  if(!Array.isArray(stock.candles) || !stock.candles.length){
+  if(!stock.name){
+    stock.name=stock.symbol;
+  }
+
+  if(!stock.price){
+    stock.price=10;
+  }
+
+  if(!stock.previousPrice){
+    stock.previousPrice=stock.price;
+  }
+
+  if(!stock.totalShares){
+    stock.totalShares=1000;
+  }
+
+  if(!stock.candles){
     stock.candles=makeCandles(stock.price);
   }
 
-  stock.suspended=!!stock.suspended;
+  if(!stock.lastCrashAt){
+    stock.lastCrashAt=0;
+  }
 
-  return stock;
+  if(stock.suspended===undefined){
+    stock.suspended=false;
+  }
 }
 
 function saveDatabase(){
@@ -1260,204 +1486,182 @@ function saveDatabase(){
 }
 
 function currentUser(){
-  const id=localStorage.getItem(SESSION_KEY);
+
+  const id = localStorage.getItem(SESSION_KEY);
+
   if(!id) return null;
 
   return db.users.find(u=>u.id===id) || null;
 }
 
-function portfolioValue(user){
-  if(!user) return 0;
-
-  let total=0;
-
-  for(const stockId in user.portfolio){
-    const holding=user.portfolio[stockId];
-    const stock=db.stocks.find(s=>s.id===stockId);
-
-    if(stock){
-      total += Number(holding.shares||0)*stock.price;
-    }
-  }
-
-  return total;
-}
-
-function totalValue(user){
-  return Number(user?.cash||0)+portfolioValue(user);
-}
-
-function portfolioProfit(user){
-  if(!user) return 0;
-
-  let profit=0;
-
-  for(const stockId in user.portfolio){
-    const holding=user.portfolio[stockId];
-    const stock=db.stocks.find(s=>s.id===stockId);
-
-    if(!stock) continue;
-
-    const shares=Number(holding.shares||0);
-    const avg=Number(holding.avgCost||0);
-
-    profit += (stock.price-avg)*shares;
-  }
-
-  return profit;
-}
-
-function marketCap(stock){
-  return stock.price*stock.totalShares;
-}
+/* =========================
+   AUTH
+========================= */
 
 function showAuth(mode){
+
   authMode=mode;
 
-  document.getElementById("loginTab").classList.toggle("active",mode==="login");
-  document.getElementById("signupTab").classList.toggle("active",mode==="signup");
+  document
+    .getElementById("loginTab")
+    .classList.toggle("active",mode==="login");
 
-  document.querySelector("#authForm .primaryBtn").textContent=
+  document
+    .getElementById("signupTab")
+    .classList.toggle("active",mode==="signup");
+
+  document.getElementById("authButton").textContent =
     mode==="login" ? "Login" : "Create Account";
 
-  document.getElementById("authPassword").value="";
+  document.getElementById("authMessage").textContent="";
 }
 
 function submitAuth(){
-  const username=document.getElementById("authUsername").value.trim();
-  const password=document.getElementById("authPassword").value;
+
+  const username =
+    document.getElementById("authUsername").value.trim();
+
+  const password =
+    document.getElementById("authPassword").value;
+
+  const msg =
+    document.getElementById("authMessage");
 
   if(!username || !password){
-    alert("Enter a username and password.");
+
+    msg.textContent="Enter a username and password.";
     return;
   }
 
   if(username.length<3){
-    alert("Username must be at least 3 characters.");
+
+    msg.textContent="Username must be at least 3 characters.";
     return;
   }
 
   if(authMode==="signup"){
-    const exists=db.users.some(
-      u=>u.username.toLowerCase()===username.toLowerCase()
-    );
 
-    if(exists){
-      alert("That username is already taken.");
+    if(db.users.some(
+      u=>u.username.toLowerCase()===username.toLowerCase()
+    )){
+
+      msg.textContent="That username already exists.";
       return;
     }
 
     const user={
-      id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+      id:uid(),
       username,
       password,
-      cash:100000,
-      portfolio:{},
-      createdAt:Date.now(),
-      banned:false
+      cash:100000000,
+      holdings:{},
+      trades:[],
+      createdStocks:[],
+      banned:false,
+      joinedAt:Date.now()
     };
 
     db.users.push(user);
+
     saveDatabase();
 
     localStorage.setItem(SESSION_KEY,user.id);
 
     startGame();
+
     return;
   }
 
   const user=db.users.find(
     u=>u.username.toLowerCase()===username.toLowerCase()
-    && u.password===password
+      && u.password===password
   );
 
   if(!user){
-    alert("Incorrect username or password.");
+
+    msg.textContent="Invalid username or password.";
     return;
   }
 
   if(user.banned){
-    alert("This account is banned.");
+
+    msg.textContent="This account has been banned.";
     return;
   }
 
   localStorage.setItem(SESSION_KEY,user.id);
+
   startGame();
 }
 
 function logout(){
+
   localStorage.removeItem(SESSION_KEY);
 
   document.getElementById("app").classList.add("hidden");
-  document.getElementById("loginScreen").classList.remove("hidden");
+  document.getElementById("authScreen").classList.remove("hidden");
 
-  document.getElementById("authUsername").value="";
-  document.getElementById("authPassword").value="";
+  operatorUnlocked=false;
+
+  showAuth("login");
 }
 
+/* =========================
+   GAME START
+========================= */
+
 function startGame(){
+
   const user=currentUser();
 
   if(!user){
+
     logout();
     return;
   }
 
   if(user.banned){
+
     logout();
-    alert("This account is banned.");
     return;
   }
 
-  document.getElementById("loginScreen").classList.add("hidden");
+  document.getElementById("authScreen").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
 
-  page("dashboard");
+  selectedStockId =
+    db.stocks[0]?.id || null;
 
   updateAll();
+  drawChart();
+
+  page("dashboard",document.querySelector(".navBtn"));
 }
 
+/* =========================
+   NAVIGATION
+========================= */
+
 function page(name,button){
-  const pages=[
-    "dashboard",
-    "market",
-    "portfolio",
-    "friends",
-    "chat",
-    "leaderboard",
-    "create",
-    "operator"
-  ];
 
-  pages.forEach(p=>{
-    const el=document.getElementById(p+"Page");
-    if(el) el.classList.toggle("hidden",p!==name);
-  });
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
 
-  document.querySelectorAll(".navBtn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
+  const target=document.getElementById(name);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document.querySelectorAll(".navBtn")
+    .forEach(b=>b.classList.remove("active"));
 
   if(button){
     button.classList.add("active");
-  }else{
-    const target=[...document.querySelectorAll(".navBtn")]
-      .find(btn=>btn.getAttribute("onclick")?.includes("'"+name+"'"));
-
-    if(target) target.classList.add("active");
   }
 
   if(name==="market"){
-    if(!selectedStockId && db.stocks.length){
-      selectedStockId=db.stocks[0].id;
-    }
-
-    renderMarket();
     drawChart();
-  }
-
-  if(name==="chat"){
-    renderChat();
   }
 
   if(name==="operator"){
@@ -1465,417 +1669,593 @@ function page(name,button){
   }
 }
 
-function updateTop(){
-  const user=currentUser();
-  if(!user) return;
+/* =========================
+   PORTFOLIO
+========================= */
 
-  document.getElementById("topCash").textContent=money(user.cash);
-  document.getElementById("topUsername").textContent=user.username;
+function portfolioValue(user){
+
+  let total=0;
+
+  for(const stock of db.stocks){
+
+    const shares=Number(user.holdings[stock.id]?.shares || 0);
+
+    total += shares*stock.price;
+  }
+
+  return total;
 }
 
-function renderDashboard(){
+function portfolioCost(user){
+
+  let total=0;
+
+  for(const id in user.holdings){
+
+    const h=user.holdings[id];
+
+    total += Number(h.cost || 0);
+  }
+
+  return total;
+}
+
+function totalValue(user){
+
+  return Number(user.cash||0)+portfolioValue(user);
+}
+
+function totalProfit(user){
+
+  return totalValue(user)-100000000;
+}
+
+/* =========================
+   UPDATE ALL
+========================= */
+
+function updateAll(){
+
   const user=currentUser();
+
   if(!user) return;
 
-  const pv=portfolioValue(user);
-  const tv=totalValue(user);
-  const pl=portfolioProfit(user);
+  document.getElementById("topCash").textContent=
+    money(user.cash);
 
-  document.getElementById("dashCash").textContent=money(user.cash);
-  document.getElementById("dashPortfolio").textContent=money(pv);
-  document.getElementById("dashTotal").textContent=money(tv);
+  document.getElementById("topUsername").textContent=
+    user.username;
 
-  const profitEl=document.getElementById("dashProfit");
-  profitEl.textContent=money(pl);
-  profitEl.className="cardValue "+(pl>=0?"green":"red");
+  const pvalue=portfolioValue(user);
+  const total=totalValue(user);
+  const pl=totalProfit(user);
+
+  document.getElementById("dashCash").textContent=
+    money(user.cash);
+
+  document.getElementById("dashPortfolio").textContent=
+    money(pvalue);
+
+  document.getElementById("dashTotal").textContent=
+    money(total);
+
+  document.getElementById("dashPL").textContent=
+    money(pl);
+
+  document.getElementById("dashPL").className=
+    "bigNumber "+(pl>=0?"green":"red");
+
+  renderDashboardStocks();
+  renderMarketStocks();
+  renderPortfolio();
+  renderFriends();
+  renderLeaderboard();
+  renderChat();
+
+  document.getElementById("creationFeeDisplay").textContent=
+    money(db.settings.creationFee);
+
+  if(operatorUnlocked){
+    renderOperator();
+  }
+
+  updateTradePanel();
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboardStocks(){
 
   const tbody=document.getElementById("dashboardStocks");
 
-  tbody.innerHTML=db.stocks.map(stock=>{
-    const change=
-      stock.previousPrice
-      ? ((stock.price-stock.previousPrice)/stock.previousPrice)*100
-      : 0;
+  tbody.innerHTML="";
 
-    return `
-      <tr>
-        <td>
-          <div class="stockName">${escapeHtml(stock.name)}</div>
-          <div class="small">${escapeHtml(stock.symbol)}</div>
-        </td>
-        <td>${money(stock.price)}</td>
-        <td class="${change>=0?"green":"red"}">${pct(change)}</td>
-        <td>${integer(stock.totalShares)}</td>
-        <td>${money(marketCap(stock))}</td>
-      </tr>
+  db.stocks.forEach(stock=>{
+
+    const change=priceChange(stock);
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+      <td>
+        <button class="stockBtn"
+          onclick="selectStock('${stock.id}')">
+          ${escapeHtml(stock.symbol)}
+          — ${escapeHtml(stock.name)}
+        </button>
+      </td>
+
+      <td>${money(stock.price)}</td>
+
+      <td class="${change>=0?"green":"red"}">
+        ${change>=0?"+":""}${change.toFixed(2)}%
+      </td>
+
+      <td>${number(stock.totalShares)}</td>
+
+      <td>${money(stockMarketCap(stock))}</td>
     `;
-  }).join("");
+
+    tbody.appendChild(tr);
+  });
+}
+
+/* =========================
+   MARKET
+========================= */
+
+function renderMarketStocks(){
+
+  const tbody=document.getElementById("marketStocks");
+
+  tbody.innerHTML="";
+
+  db.stocks.forEach(stock=>{
+
+    const change=priceChange(stock);
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+      <td>
+        <button class="stockBtn"
+          onclick="selectStock('${stock.id}')">
+          ${escapeHtml(stock.symbol)}
+          — ${escapeHtml(stock.name)}
+        </button>
+      </td>
+
+      <td>${money(stock.price)}</td>
+
+      <td class="${change>=0?"green":"red"}">
+        ${change>=0?"+":""}${change.toFixed(2)}%
+      </td>
+
+      <td>${number(stock.totalShares)}</td>
+
+      <td>${money(stockMarketCap(stock))}</td>
+
+      <td class="${stock.suspended?"red":"green"}">
+        ${stock.suspended?"Suspended":"Active"}
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
 
 function selectStock(id){
+
+  if(!db.stocks.some(s=>s.id===id)) return;
+
   selectedStockId=id;
-  page("market");
-  renderMarket();
+
+  page(
+    "market",
+    [...document.querySelectorAll(".navBtn")]
+      .find(b=>b.textContent.includes("Market"))
+  );
+
+  updateTradePanel();
   drawChart();
 }
 
-function renderMarket(){
-  const stock=db.stocks.find(s=>s.id===selectedStockId)
-    || db.stocks[0];
+function updateTradePanel(){
 
-  if(!stock) return;
+  const stock=db.stocks.find(
+    s=>s.id===selectedStockId
+  );
 
-  selectedStockId=stock.id;
+  const user=currentUser();
 
-  const change=
-    stock.previousPrice
-    ? ((stock.price-stock.previousPrice)/stock.previousPrice)*100
-    : 0;
+  if(!stock || !user) return;
 
-  document.getElementById("marketStockName").textContent=stock.name;
-  document.getElementById("marketStockSymbol").textContent=stock.symbol;
-  document.getElementById("marketPrice").textContent=money(stock.price);
-  document.getElementById("marketShares").textContent=integer(stock.totalShares);
-  document.getElementById("marketCap").textContent=money(marketCap(stock));
+  document.getElementById("chartTitle").textContent=
+    stock.symbol+" — "+stock.name;
 
-  const changeEl=document.getElementById("marketChange");
-  changeEl.textContent=pct(change);
-  changeEl.className="statValue "+(change>=0?"green":"red");
+  document.getElementById("chartSymbol").textContent=
+    stock.suspended ? "SUSPENDED" : "Active";
 
-  document.getElementById("tradePrice").textContent=money(stock.price);
+  document.getElementById("tradeStockName").textContent=
+    stock.name+" ("+stock.symbol+")";
 
-  document.getElementById("tradeHint").textContent=
-    stock.suspended
-      ? "This stock is currently suspended."
-      : stock.description || "Trade this stock.";
+  document.getElementById("tradePrice").textContent=
+    money(stock.price);
 
-  document.getElementById("marketStatus").textContent=
-    stock.suspended ? "Suspended" : "Trading";
+  document.getElementById("tradeMarketCap").textContent=
+    money(stockMarketCap(stock));
 
-  const allStocks=document.getElementById("allStocks");
+  document.getElementById("tradeTotalShares").textContent=
+    number(stock.totalShares);
 
-  allStocks.innerHTML=db.stocks.map(s=>{
-    const ch=s.previousPrice
-      ? ((s.price-s.previousPrice)/s.previousPrice)*100
-      : 0;
-
-    return `
-      <tr>
-        <td>
-          <div class="stockName">${escapeHtml(s.name)}</div>
-          <div class="small">${escapeHtml(s.symbol)}</div>
-        </td>
-
-        <td>${money(s.price)}</td>
-
-        <td class="${ch>=0?"green":"red"}">${pct(ch)}</td>
-
-        <td>${integer(s.totalShares)}</td>
-
-        <td>${money(marketCap(s))}</td>
-
-        <td>
-          <button class="action dark" onclick="selectStock('${s.id}')">
-            View
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join("");
+  document.getElementById("tradeOwned").textContent=
+    number(user.holdings[stock.id]?.shares || 0);
 }
 
-function renderPortfolio(){
+/* =========================
+   TRADING
+========================= */
+
+function trade(type){
+
   const user=currentUser();
-  if(!user) return;
 
-  const tbody=document.getElementById("portfolioTable");
+  const stock=db.stocks.find(
+    s=>s.id===selectedStockId
+  );
 
-  const entries=Object.entries(user.portfolio)
-    .filter(([id,h])=>Number(h.shares||0)>0);
+  const shares=Math.floor(
+    Number(document.getElementById("tradeShares").value)
+  );
 
-  if(!entries.length){
+  const msg=document.getElementById("tradeMessage");
+
+  msg.textContent="";
+
+  if(!stock){
+
+    msg.textContent="Select a stock first.";
+    return;
+  }
+
+  if(stock.suspended){
+
+    msg.textContent="This stock is suspended.";
+    return;
+  }
+
+  if(!Number.isFinite(shares) || shares<=0){
+
+    msg.textContent="Enter a valid number of shares.";
+    return;
+  }
+
+  const cost=shares*stock.price;
+
+  pendingTrade={
+    type,
+    shares,
+    stockId:stock.id,
+    cost
+  };
+
+  document.getElementById("modalTitle").textContent=
+    type==="buy" ? "Confirm Purchase" : "Confirm Sale";
+
+  document.getElementById("modalText").textContent=
+    `${type==="buy"?"Buy":"Sell"} ${number(shares)} share(s) of ${stock.symbol} at ${money(stock.price)} each for ${money(cost)}?`;
+
+  document.getElementById("tradeModal")
+    .classList.remove("hidden");
+}
+
+function closeModal(){
+
+  pendingTrade=null;
+
+  document.getElementById("tradeModal")
+    .classList.add("hidden");
+}
+
+function confirmTrade(){
+
+  if(!pendingTrade) return;
+
+  const user=currentUser();
+
+  const stock=db.stocks.find(
+    s=>s.id===pendingTrade.stockId
+  );
+
+  if(!user || !stock){
+
+    closeModal();
+    return;
+  }
+
+  const shares=pendingTrade.shares;
+  const cost=pendingTrade.cost;
+
+  if(pendingTrade.type==="buy"){
+
+    if(user.cash<cost){
+
+      document.getElementById("tradeMessage").textContent=
+        "You don't have enough cash.";
+
+      closeModal();
+      return;
+    }
+
+    user.cash-=cost;
+
+    if(!user.holdings[stock.id]){
+
+      user.holdings[stock.id]={
+        shares:0,
+        cost:0
+      };
+    }
+
+    user.holdings[stock.id].shares+=shares;
+    user.holdings[stock.id].cost+=cost;
+
+    user.trades.push({
+      type:"buy",
+      stockId:stock.id,
+      shares,
+      price:stock.price,
+      time:Date.now()
+    });
+
+  }else{
+
+    const holding=user.holdings[stock.id];
+
+    if(!holding || holding.shares<shares){
+
+      document.getElementById("tradeMessage").textContent=
+        "You don't own enough shares.";
+
+      closeModal();
+      return;
+    }
+
+    const avgCost=
+      holding.cost/holding.shares;
+
+    holding.shares-=shares;
+    holding.cost-=avgCost*shares;
+
+    user.cash+=cost;
+
+    user.trades.push({
+      type:"sell",
+      stockId:stock.id,
+      shares,
+      price:stock.price,
+      time:Date.now()
+    });
+
+    if(holding.shares<=0){
+
+      delete user.holdings[stock.id];
+    }
+  }
+
+  saveDatabase();
+  closeModal();
+  updateAll();
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+function renderPortfolio(){
+
+  const user=currentUser();
+
+  const pvalue=portfolioValue(user);
+  const total=totalValue(user);
+  const pl=totalProfit(user);
+
+  document.getElementById("portfolioCash").textContent=
+    money(user.cash);
+
+  document.getElementById("portfolioValue").textContent=
+    money(pvalue);
+
+  document.getElementById("portfolioTotal").textContent=
+    money(total);
+
+  document.getElementById("portfolioPL").textContent=
+    money(pl);
+
+  document.getElementById("portfolioPL").className=
+    "bigNumber "+(pl>=0?"green":"red");
+
+  const tbody=document.getElementById("portfolioStocks");
+
+  tbody.innerHTML="";
+
+  let found=false;
+
+  db.stocks.forEach(stock=>{
+
+    const h=user.holdings[stock.id];
+
+    if(!h || h.shares<=0) return;
+
+    found=true;
+
+    const value=h.shares*stock.price;
+    const profit=value-h.cost;
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+      <td>${escapeHtml(stock.symbol)} — ${escapeHtml(stock.name)}</td>
+      <td>${number(h.shares)}</td>
+      <td>${money(stock.price)}</td>
+      <td>${money(value)}</td>
+      <td>${money(h.cost)}</td>
+      <td class="${profit>=0?"green":"red"}">
+        ${money(profit)}
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  if(!found){
+
     tbody.innerHTML=`
       <tr>
-        <td colspan="6" class="small">
+        <td colspan="6" class="muted">
           You don't own any stocks yet.
         </td>
       </tr>
     `;
-    return;
   }
-
-  tbody.innerHTML=entries.map(([id,h])=>{
-    const stock=db.stocks.find(s=>s.id===id);
-
-    if(!stock) return "";
-
-    const shares=Number(h.shares||0);
-    const avg=Number(h.avgCost||0);
-    const value=shares*stock.price;
-    const pl=(stock.price-avg)*shares;
-
-    return `
-      <tr>
-        <td>
-          <div class="stockName">${escapeHtml(stock.name)}</div>
-          <div class="small">${escapeHtml(stock.symbol)}</div>
-        </td>
-
-        <td>${integer(shares)}</td>
-        <td>${money(stock.price)}</td>
-        <td>${money(value)}</td>
-        <td>${money(avg)}</td>
-        <td class="${pl>=0?"green":"red"}">${money(pl)}</td>
-      </tr>
-    `;
-  }).join("");
 }
+
+/* =========================
+   FRIENDS
+========================= */
 
 function renderFriends(){
+
   const tbody=document.getElementById("friendsTable");
 
-  const players=[...db.users]
-    .sort((a,b)=>totalValue(b)-totalValue(a));
+  tbody.innerHTML="";
 
-  tbody.innerHTML=players.map(user=>{
-    return `
-      <tr>
-        <td>${escapeHtml(user.username)}</td>
-        <td>${money(portfolioValue(user))}</td>
-        <td>${money(totalValue(user))}</td>
-      </tr>
+  db.users.forEach(user=>{
+
+    const pl=totalProfit(user);
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+      <td>${escapeHtml(user.username)}</td>
+      <td>${money(totalValue(user))}</td>
+      <td class="${pl>=0?"green":"red"}">
+        ${money(pl)}
+      </td>
     `;
-  }).join("");
+
+    tbody.appendChild(tr);
+  });
 }
 
+/* =========================
+   LEADERBOARD
+========================= */
+
 function renderLeaderboard(){
+
   const tbody=document.getElementById("leaderboardTable");
 
-  const players=[...db.users]
-    .filter(u=>!u.banned)
+  tbody.innerHTML="";
+
+  const users=[...db.users]
     .sort((a,b)=>totalValue(b)-totalValue(a));
 
-  tbody.innerHTML=players.map((user,index)=>{
-    return `
-      <tr>
-        <td>${index+1}</td>
-        <td>${escapeHtml(user.username)}</td>
-        <td>${money(portfolioValue(user))}</td>
-        <td>${money(user.cash)}</td>
-        <td class="${index===0?"gold":""}">
-          ${money(totalValue(user))}
-        </td>
-      </tr>
+  users.forEach((user,index)=>{
+
+    const pl=totalProfit(user);
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+      <td>${index+1}</td>
+      <td>${escapeHtml(user.username)}</td>
+      <td>${money(user.cash)}</td>
+      <td>${money(portfolioValue(user))}</td>
+      <td>${money(totalValue(user))}</td>
+      <td class="${pl>=0?"green":"red"}">
+        ${money(pl)}
+      </td>
     `;
-  }).join("");
+
+    tbody.appendChild(tr);
+  });
 }
 
 /* =========================
    CHAT
 ========================= */
 
-function formatChatTime(timestamp){
-  return new Date(timestamp).toLocaleTimeString([],{
-    hour:"numeric",
-    minute:"2-digit"
-  });
-}
-
-function renderChat(){
-  const box=document.getElementById("chatMessages");
-
-  if(!box) return;
-
-  const messages=Array.isArray(db.chat) ? db.chat : [];
-
-  if(!messages.length){
-    box.innerHTML=`
-      <div class="small">
-        No messages yet. Start the conversation.
-      </div>
-    `;
-    return;
-  }
-
-  box.innerHTML=messages.map(message=>`
-    <div class="chatMessage">
-      <div class="chatMeta">
-        <strong>${escapeHtml(message.username)}</strong>
-        · ${formatChatTime(message.createdAt)}
-      </div>
-
-      <div class="chatText">
-        ${escapeHtml(message.text)}
-      </div>
-    </div>
-  `).join("");
-
-  box.scrollTop=box.scrollHeight;
-}
-
 function sendChatMessage(){
-  const user=currentUser();
-  const input=document.getElementById("chatInput");
 
-  if(!user || !input) return;
+  const user=currentUser();
+
+  const input=document.getElementById("chatText");
 
   const text=input.value.trim();
 
   if(!text) return;
 
-  if(text.length>300){
-    alert("Message is too long.");
-    return;
-  }
-
-  if(!Array.isArray(db.chat)){
-    db.chat=[];
-  }
-
   db.chat.push({
-    id:"chat_"+Date.now()+"_"+Math.random().toString(36).slice(2),
+    id:uid(),
     userId:user.id,
     username:user.username,
-    text,
+    text:text.slice(0,300),
     createdAt:Date.now()
   });
 
   if(db.chat.length>200){
+
     db.chat=db.chat.slice(-200);
   }
 
-  saveDatabase();
-
   input.value="";
-  renderChat();
-  input.focus();
-}
-
-document.getElementById("chatInput").addEventListener("keydown",function(event){
-  if(event.key==="Enter"){
-    event.preventDefault();
-    sendChatMessage();
-  }
-});
-
-/* =========================
-   TRADING
-========================= */
-
-function openTrade(mode){
-  const stock=db.stocks.find(s=>s.id===selectedStockId);
-  const user=currentUser();
-
-  if(!stock || !user) return;
-
-  if(stock.suspended){
-    alert("This stock is currently suspended.");
-    return;
-  }
-
-  tradeMode=mode;
-
-  document.getElementById("tradeModalTitle").textContent=
-    mode==="buy" ? "Buy Stock" : "Sell Stock";
-
-  document.getElementById("tradeModalSub").textContent=
-    stock.name+" ("+stock.symbol+") at "+money(stock.price);
-
-  document.getElementById("modalShares").value=1;
-
-  updateTradeModal();
-
-  document.getElementById("tradeModal").classList.remove("hidden");
-}
-
-function updateTradeModal(){
-  const stock=db.stocks.find(s=>s.id===selectedStockId);
-  if(!stock) return;
-
-  const shares=Math.max(
-    0,
-    Math.floor(Number(document.getElementById("modalShares").value)||0)
-  );
-
-  document.getElementById("modalTotal").textContent=
-    money(shares*stock.price);
-
-  document.getElementById("modalConfirm").textContent=
-    tradeMode==="buy" ? "Buy" : "Sell";
-}
-
-document.getElementById("modalShares").addEventListener(
-  "input",
-  updateTradeModal
-);
-
-function closeTrade(){
-  document.getElementById("tradeModal").classList.add("hidden");
-}
-
-function confirmTrade(){
-  const user=currentUser();
-  const stock=db.stocks.find(s=>s.id===selectedStockId);
-
-  if(!user || !stock) return;
-
-  const shares=Math.floor(
-    Number(document.getElementById("modalShares").value)||0
-  );
-
-  if(shares<=0){
-    alert("Enter a valid number of shares.");
-    return;
-  }
-
-  if(tradeMode==="buy"){
-    const total=shares*stock.price;
-
-    if(total>user.cash){
-      alert("You don't have enough cash.");
-      return;
-    }
-
-    if(!user.portfolio[stock.id]){
-      user.portfolio[stock.id]={
-        shares:0,
-        avgCost:0
-      };
-    }
-
-    const holding=user.portfolio[stock.id];
-    const oldShares=Number(holding.shares||0);
-    const oldAvg=Number(holding.avgCost||0);
-
-    const newShares=oldShares+shares;
-
-    holding.avgCost=
-      ((oldShares*oldAvg)+(shares*stock.price))/newShares;
-
-    holding.shares=newShares;
-
-    user.cash-=total;
-
-  }else{
-    const holding=user.portfolio[stock.id];
-
-    if(!holding || Number(holding.shares||0)<shares){
-      alert("You don't own enough shares.");
-      return;
-    }
-
-    holding.shares-=shares;
-    user.cash+=shares*stock.price;
-
-    if(holding.shares<=0){
-      delete user.portfolio[stock.id];
-    }
-  }
 
   saveDatabase();
+  renderChat();
+}
 
-  closeTrade();
-  updateAll();
+function renderChat(){
+
+  const box=document.getElementById("chatMessages");
+
+  if(!box) return;
+
+  box.innerHTML="";
+
+  db.chat.forEach(message=>{
+
+    const div=document.createElement("div");
+
+    div.className="chatMessage";
+
+    const time=new Date(message.createdAt)
+      .toLocaleTimeString([],{
+        hour:"numeric",
+        minute:"2-digit"
+      });
+
+    div.innerHTML=`
+      <span class="chatName">
+        ${escapeHtml(message.username)}
+      </span>
+
+      <span class="chatTime">
+        ${time}
+      </span>
+
+      <div class="chatText">
+        ${escapeHtml(message.text)}
+      </div>
+    `;
+
+    box.appendChild(div);
+  });
+
+  box.scrollTop=box.scrollHeight;
 }
 
 /* =========================
@@ -1883,328 +2263,109 @@ function confirmTrade(){
 ========================= */
 
 function createStock(){
+
   const user=currentUser();
 
-  if(!user) return;
+  const name=document
+    .getElementById("createName")
+    .value
+    .trim();
 
-  const name=document.getElementById("createName").value.trim();
-  const symbol=document.getElementById("createSymbol").value.trim().toUpperCase();
+  const symbol=document
+    .getElementById("createSymbol")
+    .value
+    .trim()
+    .toUpperCase();
+
   const shares=Math.floor(
-    Number(document.getElementById("createShares").value)||0
+    Number(document.getElementById("createShares").value)
   );
-  const price=Number(document.getElementById("createPrice").value);
-  const description=document.getElementById("createDescription").value.trim();
+
+  const msg=document.getElementById("createMessage");
+
+  msg.textContent="";
 
   if(!name || !symbol){
-    alert("Enter a company name and stock symbol.");
+
+    msg.textContent="Enter a name and symbol.";
     return;
   }
 
-  if(symbol.length>6){
-    alert("Stock symbols can be up to 6 characters.");
+  if(!/^[A-Z0-9]{1,6}$/.test(symbol)){
+
+    msg.textContent=
+      "Symbol must be 1–6 letters or numbers.";
+
     return;
   }
 
-  if(shares<=0){
-    alert("Enter a valid number of shares.");
+  if(!Number.isFinite(shares) || shares<1){
+
+    msg.textContent=
+      "Total shares must be at least 1.";
+
     return;
   }
 
-  if(!Number.isFinite(price) || price<=0){
-    alert("Enter a valid starting price.");
+  if(db.stocks.some(
+    s=>s.symbol.toUpperCase()===symbol
+  )){
+
+    msg.textContent=
+      "That stock symbol already exists.";
+
     return;
   }
 
-  const duplicate=db.stocks.some(s=>
-    s.symbol.toLowerCase()===symbol.toLowerCase()
-  );
-
-  if(duplicate){
-    alert("That stock symbol is already being used.");
-    return;
-  }
-
-  const fee=Number(db.settings.creationFee||0);
+  const fee=Number(db.settings.creationFee);
 
   if(user.cash<fee){
-    alert("You don't have enough cash to pay the stock creation fee.");
+
+    msg.textContent=
+      "You don't have enough cash to create a stock.";
+
     return;
   }
 
-  const now=new Date();
+  const today=todayKey();
 
-  const alreadyToday=db.stocks.some(s=>
-    s.ownerId===user.id &&
-    s.createdAt &&
-    new Date(s.createdAt).toDateString()===now.toDateString()
-  );
+  const alreadyCreatedToday=
+    user.createdStocks?.some(
+      c=>c===today
+    );
 
-  if(alreadyToday){
-    alert("You can only create one stock per day.");
+  if(alreadyCreatedToday){
+
+    msg.textContent=
+      "You already created a stock today.";
+
     return;
   }
 
   user.cash-=fee;
 
-  const stock=makeStock({
+  const stock=makeStock(
     symbol,
     name,
-    price,
+    10,
     shares,
-    description,
-    ownerId:user.id
-  });
+    user.id
+  );
 
   db.stocks.push(stock);
 
+  user.createdStocks.push(today);
+
   saveDatabase();
+  updateAll();
 
   document.getElementById("createName").value="";
   document.getElementById("createSymbol").value="";
-  document.getElementById("createShares").value="";
-  document.getElementById("createPrice").value="10";
-  document.getElementById("createDescription").value="";
-
-  alert(
-    "Stock created!\n\n"+
-    stock.symbol+" has "+integer(stock.totalShares)+" total shares."
-  );
-
-  selectedStockId=stock.id;
-
-  updateAll();
-  page("market");
-}
-
-/* =========================
-   RARE STOCK CRASHES
-========================= */
-
-function maybeCrashStock(stock){
-  /*
-    Very rare event.
-
-    This is intentionally uncommon so normal price movement
-    remains the main behavior.
-
-    Roughly 0.08% chance per market tick for each stock.
-  */
-
-  if(Math.random()>0.0008){
-    return false;
-  }
-
-  /*
-    Don't immediately crash the same stock repeatedly.
-    At least 10 minutes must pass between crashes on one stock.
-  */
-  if(stock.lastCrashAt && Date.now()-stock.lastCrashAt<600000){
-    return false;
-  }
-
-  const oldPrice=stock.price;
-
-  /*
-    Crash to roughly 10% of current value.
-  */
-  stock.price=Math.max(0.01,oldPrice*0.10);
-
-  stock.previousPrice=oldPrice;
-
-  stock.lastCrashAt=Date.now();
-
-  stock.candles.push({
-    open:oldPrice,
-    close:stock.price,
-    high:oldPrice,
-    low:stock.price
-  });
-
-  if(stock.candles.length>100){
-    stock.candles=stock.candles.slice(-100);
-  }
-
-  return true;
-}
-
-/* =========================
-   MARKET SIMULATION
-========================= */
-
-function marketTick(){
-  if(!db) return;
-
-  let crashedStock=null;
-
-  for(const stock of db.stocks){
-
-    if(stock.suspended){
-      continue;
-    }
-
-    const oldPrice=stock.price;
-
-    if(maybeCrashStock(stock)){
-      crashedStock=stock;
-      continue;
-    }
-
-    /*
-      Normal movement:
-      - Slight upward long-term drift
-      - Random short-term movement
-    */
-    const drift=0.009;
-    const swing=(Math.random()-0.5)*0.07;
-
-    let newPrice=oldPrice*(1+drift+swing);
-
-    newPrice=Math.max(0.01,newPrice);
-
-    stock.previousPrice=oldPrice;
-    stock.price=newPrice;
-
-    stock.candles.push({
-      open:oldPrice,
-      close:newPrice,
-      high:Math.max(oldPrice,newPrice)*(1+Math.random()*0.02),
-      low:Math.max(
-        0.01,
-        Math.min(oldPrice,newPrice)*(1-Math.random()*0.02)
-      )
-    });
-
-    if(stock.candles.length>100){
-      stock.candles=stock.candles.slice(-100);
-    }
-  }
-
-  saveDatabase();
-
-  updateAll();
-
-  if(crashedStock){
-    /*
-      If the user is looking at the crashed stock,
-      redraw immediately.
-    */
-    if(selectedStockId===crashedStock.id){
-      drawChart();
-    }
-  }
-}
-
-/* =========================
-   CHART
-========================= */
-
-function drawChart(){
-  const canvas=document.getElementById("chart");
-
-  if(!canvas) return;
-
-  const stock=db.stocks.find(s=>s.id===selectedStockId);
-
-  if(!stock) return;
-
-  const rect=canvas.getBoundingClientRect();
-
-  const dpr=window.devicePixelRatio||1;
-
-  canvas.width=rect.width*dpr;
-  canvas.height=360*dpr;
-
-  const ctx=canvas.getContext("2d");
-
-  ctx.scale(dpr,dpr);
-
-  const width=rect.width;
-  const height=360;
-
-  ctx.clearRect(0,0,width,height);
-
-  const candles=stock.candles.slice(-60);
-
-  if(!candles.length) return;
-
-  let min=Infinity;
-  let max=-Infinity;
-
-  candles.forEach(c=>{
-    min=Math.min(min,c.low);
-    max=Math.max(max,c.high);
-  });
-
-  const padding=35;
-  const range=Math.max(0.01,max-min);
-
-  function y(value){
-    return height-padding-
-      ((value-min)/range)*(height-padding*2);
-  }
-
-  const candleWidth=Math.max(
-    3,
-    (width-padding*2)/candles.length*0.65
-  );
-
-  const spacing=(width-padding*2)/candles.length;
-
-  /*
-    Grid
-  */
-  ctx.strokeStyle="#172934";
-  ctx.lineWidth=1;
-
-  for(let i=0;i<5;i++){
-    const gy=padding+
-      ((height-padding*2)/4)*i;
-
-    ctx.beginPath();
-    ctx.moveTo(padding,gy);
-    ctx.lineTo(width-padding,gy);
-    ctx.stroke();
-  }
-
-  candles.forEach((c,index)=>{
-    const x=padding+spacing*index+spacing/2;
-
-    const openY=y(c.open);
-    const closeY=y(c.close);
-    const highY=y(c.high);
-    const lowY=y(c.low);
-
-    const up=c.close>=c.open;
-
-    ctx.strokeStyle=up ? "#35df91" : "#ff626d";
-    ctx.fillStyle=up ? "#35df91" : "#ff626d";
-
-    ctx.beginPath();
-    ctx.moveTo(x,highY);
-    ctx.lineTo(x,lowY);
-    ctx.stroke();
-
-    const bodyTop=Math.min(openY,closeY);
-    const bodyHeight=Math.max(1,Math.abs(openY-closeY));
-
-    ctx.fillRect(
-      x-candleWidth/2,
-      bodyTop,
-      candleWidth,
-      bodyHeight
-    );
-  });
-
-  ctx.fillStyle="#7f94a5";
-  ctx.font="11px Arial";
-
-  for(let i=0;i<5;i++){
-    const value=max-(range/4)*i;
-    const gy=padding+
-      ((height-padding*2)/4)*i;
-
-    ctx.fillText(money(value),5,gy+4);
-  }
+  document.getElementById("createShares").value="1000";
+
+  msg.className="message green";
+  msg.textContent=
+    `Stock ${symbol} created successfully.`;
 }
 
 /* =========================
@@ -2212,127 +2373,281 @@ function drawChart(){
 ========================= */
 
 function operatorLogin(){
-  const password=document.getElementById("operatorPassword").value;
+
+  const password=
+    document.getElementById("operatorPassword").value;
+
+  const msg=
+    document.getElementById("operatorMessage");
 
   if(password!==OPERATOR_PASSWORD){
-    alert("Incorrect operator password.");
+
+    msg.textContent="Incorrect operator password.";
     return;
   }
 
   operatorUnlocked=true;
 
-  document.getElementById("operatorTools").classList.remove("hidden");
+  document
+    .getElementById("operatorLoginBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("operatorTools")
+    .classList.remove("hidden");
 
   renderOperator();
 }
 
 function renderOperator(){
+
   if(!operatorUnlocked) return;
 
-  document.getElementById("operatorFee").value=
+  document.getElementById("operatorCreationFee").value=
     db.settings.creationFee;
 
-  const users=document.getElementById("operatorUsers");
+  renderOperatorStocks();
+  renderOperatorUsers();
+}
 
-  users.innerHTML=db.users.map(user=>`
-    <tr>
-      <td>${escapeHtml(user.username)}</td>
-      <td>${money(user.cash)}</td>
-      <td>${user.banned ? "Yes" : "No"}</td>
+/* STOCK OPERATOR TABLE */
+
+function renderOperatorStocks(){
+
+  const tbody=document.getElementById("operatorStocks");
+
+  tbody.innerHTML="";
+
+  db.stocks.forEach(stock=>{
+
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+
       <td>
-        <button
-          class="action ${user.banned?"":"danger"}"
-          onclick="toggleBan('${user.id}')"
-        >
-          ${user.banned?"Unban":"Ban"}
-        </button>
-      </td>
-    </tr>
-  `).join("");
-
-  const stocks=document.getElementById("operatorStocks");
-
-  stocks.innerHTML=db.stocks.map(stock=>`
-    <tr>
-      <td>
-        <div class="stockName">${escapeHtml(stock.name)}</div>
-        <div class="small">${escapeHtml(stock.symbol)}</div>
+        <strong>${escapeHtml(stock.symbol)}</strong>
+        <br>
+        <span class="muted">
+          ${escapeHtml(stock.name)}
+        </span>
       </td>
 
       <td>${money(stock.price)}</td>
-      <td>${integer(stock.totalShares)}</td>
-      <td>${stock.suspended?"Suspended":"Active"}</td>
+
+      <td>${number(stock.totalShares)}</td>
+
+      <td class="${stock.suspended?"red":"green"}">
+        ${stock.suspended?"Suspended":"Active"}
+      </td>
 
       <td>
-        <button
-          class="action dark"
-          onclick="toggleSuspend('${stock.id}')"
-        >
-          ${stock.suspended?"Resume":"Suspend"}
-        </button>
+
+        <div class="operatorStockActions">
+
+          <button
+            class="smallBtn"
+            onclick="openRenameStock('${stock.id}')">
+            ✏️ Rename
+          </button>
+
+          <button
+            class="${stock.suspended?"successBtn":"warningBtn"}"
+            onclick="toggleSuspendStock('${stock.id}')">
+            ${stock.suspended?"▶ Resume":"⏸ Suspend"}
+          </button>
+
+          <button
+            class="dangerBtn"
+            onclick="deleteStock('${stock.id}')">
+            🗑️ Delete
+          </button>
+
+        </div>
+
       </td>
-    </tr>
-  `).join("");
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
 
-function saveOperatorSettings(){
-  if(!operatorUnlocked) return;
+/* RENAME STOCK */
 
-  const fee=Number(
-    document.getElementById("operatorFee").value
+function openRenameStock(id){
+
+  const stock=db.stocks.find(
+    s=>s.id===id
   );
 
-  if(!Number.isFinite(fee) || fee<0){
-    alert("Enter a valid fee.");
+  if(!stock) return;
+
+  renameStockId=id;
+
+  document.getElementById("renameStockLabel").textContent=
+    `${stock.symbol} — current name: ${stock.name}`;
+
+  document.getElementById("renameInput").value=
+    stock.name;
+
+  document.getElementById("renameMessage").textContent="";
+
+  document.getElementById("renameModal")
+    .classList.remove("hidden");
+}
+
+function closeRenameModal(){
+
+  renameStockId=null;
+
+  document.getElementById("renameModal")
+    .classList.add("hidden");
+}
+
+function confirmRename(){
+
+  if(!renameStockId) return;
+
+  const stock=db.stocks.find(
+    s=>s.id===renameStockId
+  );
+
+  if(!stock) return;
+
+  const input=document.getElementById("renameInput");
+
+  const newName=input.value.trim();
+
+  const msg=document.getElementById("renameMessage");
+
+  if(!newName){
+
+    msg.textContent="Enter a stock name.";
     return;
   }
 
-  db.settings.creationFee=fee;
+  stock.name=newName.slice(0,40);
 
   saveDatabase();
+
+  closeRenameModal();
+
   updateAll();
-
-  alert("Settings saved.");
-}
-
-function toggleBan(userId){
-  if(!operatorUnlocked) return;
-
-  const user=db.users.find(u=>u.id===userId);
-
-  if(!user) return;
-
-  user.banned=!user.banned;
-
-  saveDatabase();
   renderOperator();
 }
 
-function toggleSuspend(stockId){
-  if(!operatorUnlocked) return;
+/* DELETE STOCK */
 
-  const stock=db.stocks.find(s=>s.id===stockId);
+function deleteStock(id){
+
+  const stock=db.stocks.find(
+    s=>s.id===id
+  );
+
+  if(!stock) return;
+
+  const confirmed=confirm(
+    `PERMANENTLY DELETE ${stock.symbol} — ${stock.name}?\n\n`+
+    `This cannot be undone. The stock will be removed from the market.`
+  );
+
+  if(!confirmed) return;
+
+  db.stocks=db.stocks.filter(
+    s=>s.id!==id
+  );
+
+  /*
+    Remove the deleted stock from every user's holdings.
+    The cash already spent on those shares is NOT returned.
+  */
+
+  db.users.forEach(user=>{
+
+    if(user.holdings && user.holdings[id]){
+
+      delete user.holdings[id];
+    }
+  });
+
+  if(selectedStockId===id){
+
+    selectedStockId=
+      db.stocks[0]?.id || null;
+  }
+
+  saveDatabase();
+
+  updateAll();
+  renderOperator();
+
+  if(!selectedStockId){
+
+    document.getElementById("chartTitle").textContent=
+      "No stocks available";
+
+    document.getElementById("tradeStockName").textContent=
+      "No stock selected";
+
+    document.getElementById("tradePrice").textContent=
+      "$0.00";
+  }
+}
+
+/* SUSPEND */
+
+function toggleSuspendStock(id){
+
+  const stock=db.stocks.find(
+    s=>s.id===id
+  );
 
   if(!stock) return;
 
   stock.suspended=!stock.suspended;
 
   saveDatabase();
-  renderOperator();
+
   updateAll();
+  renderOperator();
 }
 
-function resetDemo(){
-  if(!operatorUnlocked) return;
+/* CREATION FEE */
 
-  const yes=confirm(
-    "Reset the entire local Market Arcade database?\n\n"+
-    "This will delete all players, portfolios, stocks and chat messages."
+function saveCreationFee(){
+
+  const value=Math.floor(
+    Number(
+      document.getElementById("operatorCreationFee").value
+    )
   );
 
-  if(!yes) return;
+  if(!Number.isFinite(value) || value<0){
+
+    alert("Enter a valid fee.");
+    return;
+  }
+
+  db.settings.creationFee=value;
+
+  saveDatabase();
+  updateAll();
+
+  alert("Creation fee updated.");
+}
+
+/* RESET */
+
+function resetDemo(){
+
+  const confirmed=confirm(
+    "Reset all Market Arcade demo data?\n\n"+
+    "This will delete all users, stocks, portfolios, and chat messages."
+  );
+
+  if(!confirmed) return;
 
   db=defaultDatabase();
+
   saveDatabase();
 
   localStorage.removeItem(SESSION_KEY);
@@ -2340,52 +2655,380 @@ function resetDemo(){
   location.reload();
 }
 
-/* =========================
-   UPDATE EVERYTHING
-========================= */
+/* USERS */
 
-function updateAll(){
-  if(!db) return;
+function renderOperatorUsers(){
 
-  updateTop();
-  renderDashboard();
-  renderMarket();
-  renderPortfolio();
-  renderFriends();
-  renderChat();
-  renderLeaderboard();
-  renderOperator();
+  const tbody=document.getElementById("operatorUsers");
 
-  const feeBadge=document.getElementById("creationFeeBadge");
+  tbody.innerHTML="";
 
-  if(feeBadge){
-    feeBadge.textContent=
-      money(db.settings.creationFee)+" Fee";
-  }
+  db.users.forEach(user=>{
 
-  drawChart();
+    const tr=document.createElement("tr");
+
+    tr.innerHTML=`
+
+      <td>${escapeHtml(user.username)}</td>
+
+      <td>${money(user.cash)}</td>
+
+      <td class="${user.banned?"red":"green"}">
+        ${user.banned?"Banned":"Active"}
+      </td>
+
+      <td>
+
+        <button
+          class="${user.banned?"successBtn":"dangerBtn"}"
+          onclick="toggleBan('${user.id}')">
+
+          ${user.banned?"Unban":"Ban"}
+
+        </button>
+
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
 }
 
-window.addEventListener("resize",drawChart);
+function toggleBan(id){
+
+  const user=db.users.find(
+    u=>u.id===id
+  );
+
+  if(!user) return;
+
+  user.banned=!user.banned;
+
+  saveDatabase();
+
+  renderOperatorUsers();
+}
 
 /* =========================
-   BOOT
+   CHART
+========================= */
+
+function drawChart(){
+
+  const canvas=document.getElementById("chart");
+
+  if(!canvas) return;
+
+  const stock=db.stocks.find(
+    s=>s.id===selectedStockId
+  );
+
+  const rect=canvas.getBoundingClientRect();
+
+  const width=rect.width || 600;
+  const height=rect.height || 400;
+
+  const dpr=window.devicePixelRatio || 1;
+
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+
+  const ctx=canvas.getContext("2d");
+
+  ctx.scale(dpr,dpr);
+
+  ctx.clearRect(0,0,width,height);
+
+  if(!stock){
+
+    ctx.fillStyle="#7f94a5";
+    ctx.font="15px Arial";
+    ctx.fillText(
+      "No stock selected",
+      20,
+      30
+    );
+
+    return;
+  }
+
+  const candles=stock.candles || [];
+
+  if(!candles.length) return;
+
+  const prices=[];
+
+  candles.forEach(c=>{
+    prices.push(c.high,c.low);
+  });
+
+  const min=Math.min(...prices);
+  const max=Math.max(...prices);
+
+  const padding={
+    left:45,
+    right:15,
+    top:20,
+    bottom:30
+  };
+
+  const chartWidth=
+    width-padding.left-padding.right;
+
+  const chartHeight=
+    height-padding.top-padding.bottom;
+
+  function y(price){
+
+    const range=max-min || 1;
+
+    return padding.top+
+      ((max-price)/range)*chartHeight;
+  }
+
+  function x(i){
+
+    return padding.left+
+      (i/(candles.length-1 || 1))*chartWidth;
+  }
+
+  /* grid */
+
+  ctx.strokeStyle="#203541";
+  ctx.lineWidth=1;
+
+  for(let i=0;i<5;i++){
+
+    const gy=
+      padding.top+
+      i*(chartHeight/4);
+
+    ctx.beginPath();
+    ctx.moveTo(padding.left,gy);
+    ctx.lineTo(width-padding.right,gy);
+    ctx.stroke();
+
+    const value=
+      max-(max-min)*(i/4);
+
+    ctx.fillStyle="#7f94a5";
+    ctx.font="11px Arial";
+
+    ctx.fillText(
+      money(value),
+      4,
+      gy+4
+    );
+  }
+
+  /* candles */
+
+  const candleWidth=
+    Math.max(2,chartWidth/candles.length*.65);
+
+  candles.forEach((c,i)=>{
+
+    const cx=x(i);
+
+    const openY=y(c.open);
+    const closeY=y(c.close);
+    const highY=y(c.high);
+    const lowY=y(c.low);
+
+    const rising=c.close>=c.open;
+
+    ctx.strokeStyle=
+      rising ? "#35df91" : "#ff626d";
+
+    ctx.fillStyle=
+      rising ? "#35df91" : "#ff626d";
+
+    ctx.beginPath();
+
+    ctx.moveTo(cx,highY);
+    ctx.lineTo(cx,lowY);
+
+    ctx.stroke();
+
+    const top=Math.min(openY,closeY);
+    const bodyHeight=
+      Math.max(1,Math.abs(closeY-openY));
+
+    ctx.fillRect(
+      cx-candleWidth/2,
+      top,
+      candleWidth,
+      bodyHeight
+    );
+  });
+}
+
+/* =========================
+   MARKET TICK
+========================= */
+
+function maybeCrashStock(stock){
+
+  /*
+    Rare crash:
+    roughly 0.08% chance per 5-second
+    market tick for each stock.
+
+    A stock cannot crash again within
+    ten minutes.
+  */
+
+  const now=Date.now();
+
+  if(
+    now-stock.lastCrashAt <
+    10*60*1000
+  ){
+
+    return false;
+  }
+
+  if(Math.random()>0.0008){
+
+    return false;
+  }
+
+  const oldPrice=stock.price;
+
+  stock.previousPrice=oldPrice;
+
+  stock.price=Math.max(
+    0.01,
+    oldPrice*0.10
+  );
+
+  stock.lastCrashAt=now;
+
+  stock.candles.push({
+    time:now,
+    open:oldPrice,
+    high:oldPrice,
+    low:stock.price,
+    close:stock.price
+  });
+
+  if(stock.candles.length>120){
+
+    stock.candles.shift();
+  }
+
+  return true;
+}
+
+function marketTick(){
+
+  let changed=false;
+
+  db.stocks.forEach(stock=>{
+
+    if(stock.suspended) return;
+
+    if(maybeCrashStock(stock)){
+
+      changed=true;
+      return;
+    }
+
+    const oldPrice=stock.price;
+
+    stock.previousPrice=oldPrice;
+
+    /*
+      Normal movement:
+      positive long-term drift with
+      random short-term volatility.
+    */
+
+    const drift=.009;
+
+    const swing=(Math.random()-.5)*.07;
+
+    const movement=drift+swing;
+
+    stock.price=Math.max(
+      .01,
+      oldPrice*(1+movement)
+    );
+
+    const open=oldPrice;
+    const close=stock.price;
+
+    const high=Math.max(open,close)*
+      (1+Math.random()*.018);
+
+    const low=Math.min(open,close)*
+      (1-Math.random()*.018);
+
+    stock.candles.push({
+      time:Date.now(),
+      open,
+      high,
+      low,
+      close
+    });
+
+    if(stock.candles.length>120){
+
+      stock.candles.shift();
+    }
+
+    changed=true;
+  });
+
+  if(changed){
+
+    saveDatabase();
+    updateAll();
+
+    if(
+      document
+        .getElementById("market")
+        .classList
+        .contains("active")
+    ){
+
+      drawChart();
+    }
+  }
+}
+
+/* =========================
+   STARTUP
 ========================= */
 
 loadDatabase();
 
-const sessionUser=currentUser();
+const existingSession=
+  localStorage.getItem(SESSION_KEY);
 
-if(sessionUser && !sessionUser.banned){
-  startGame();
-}else{
-  localStorage.removeItem(SESSION_KEY);
+if(existingSession){
+
+  const user=currentUser();
+
+  if(user && !user.banned){
+
+    startGame();
+
+  }else{
+
+    localStorage.removeItem(SESSION_KEY);
+  }
 }
 
-/*
-  Market updates every 5 seconds.
-*/
+/* Market updates every 5 seconds */
+
 setInterval(marketTick,5000);
+
+window.addEventListener(
+  "resize",
+  drawChart
+);
+
 </script>
 
 </body>
